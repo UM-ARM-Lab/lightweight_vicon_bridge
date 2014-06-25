@@ -103,9 +103,10 @@ int main(int argc, char** argv)
                     ViconDataStreamSDK::CPP::Output_GetSegmentGlobalRotationQuaternion segment_rotation = sdk_client.GetSegmentGlobalRotationQuaternion(object_name, segment_name);
                     lightweight_vicon_bridge::MocapSegment segment_msg;
                     segment_msg.name = segment_name;
-                    segment_msg.transform.translation.x = segment_position.Translation[0];
-                    segment_msg.transform.translation.y = segment_position.Translation[1];
-                    segment_msg.transform.translation.z = segment_position.Translation[2];
+                    /* Note - Vicon SDK uses millimeters for position */
+                    segment_msg.transform.translation.x = segment_position.Translation[0] * 0.001;
+                    segment_msg.transform.translation.y = segment_position.Translation[1] * 0.001;
+                    segment_msg.transform.translation.z = segment_position.Translation[2] * 0.001;
                     segment_msg.transform.rotation.x = segment_rotation.Rotation[0];
                     segment_msg.transform.rotation.y = segment_rotation.Rotation[1];
                     segment_msg.transform.rotation.z = segment_rotation.Rotation[2];

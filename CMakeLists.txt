@@ -95,12 +95,17 @@ endif(CMAKE_SIZEOF_VOID_P MATCHES "8")
 include_directories(${catkin_INCLUDE_DIRS} ${VICON_SDK_INCLUDE_DIR})
 link_directories(${VICON_SDK_LINK_DIR})
 
-set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} -g")
+set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} -O3")
 
 # Cpp bridge executable
 add_executable(lightweight_vicon_bridge_node src/lightweight_vicon_bridge_node.cpp)
 add_dependencies(lightweight_vicon_bridge_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencpp)
 target_link_libraries(lightweight_vicon_bridge_node ViconDataStreamSDK_CPP ${catkin_LIBRARIES})
+
+# TF publisher executable
+add_executable(tf_publisher_node src/tf_publisher_node.cpp)
+add_dependencies(tf_publisher_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencpp)
+target_link_libraries(tf_publisher_node ${catkin_LIBRARIES})
 
 #############
 ## Install ##
