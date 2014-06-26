@@ -52,7 +52,7 @@ int main(int argc, char** argv)
     ROS_INFO("...connected!");
     // Enable data
     sdk_client.EnableSegmentData();
-    // Set the axes (right-handed, X-forwards, Y-right, Z-up, same as ROS)
+    // Set the axes (right-handed, X-forwards, Y-left, Z-up, same as ROS)
     sdk_client.SetAxisMapping(ViconDataStreamSDK::CPP::Direction::Forward, ViconDataStreamSDK::CPP::Direction::Left, ViconDataStreamSDK::CPP::Direction::Up);
     // Set streaming mode
     if (stream_mode == "ServerPush")
