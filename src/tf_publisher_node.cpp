@@ -46,10 +46,13 @@ int main(int argc, char** argv)
     ros::Subscriber mocap_sub = nh.subscribe(tracker_topic, 1, MocapMsgCB);
     // Start streaming data
     ROS_INFO("Streaming data...");
+    ros::Rate spin_rate(200.0);
     while (ros::ok())
     {
         // Handle ROS stuff
         ros::spinOnce();
+        // Sleep briefly
+        spin_rate.sleep();
     }
     return 0;
 }
