@@ -37,7 +37,7 @@ find_package(catkin REQUIRED COMPONENTS geometry_msgs roscpp rospy tf message_ge
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(DIRECTORY msg FILES MocapState.msg MocapObject.msg MocapSegment.msg)
+add_message_files(DIRECTORY msg FILES MocapState.msg MocapObject.msg MocapSegment.msg MocapMarker.msg MocapMarkerArray.msg)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -97,10 +97,14 @@ link_directories(${VICON_SDK_LINK_DIR})
 
 set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} -O3")
 
-# Cpp bridge executable
+# Cpp bridge executable (objects only)
 add_executable(lightweight_vicon_bridge_node src/lightweight_vicon_bridge_node.cpp)
 add_dependencies(lightweight_vicon_bridge_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencpp)
 target_link_libraries(lightweight_vicon_bridge_node ViconDataStreamSDK_CPP ${catkin_LIBRARIES})
+
+add_executable(raw_marker_bridge_node src/raw_marker_bridge_node.cpp)
+add_dependencies(raw_marker_bridge_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencpp)
+target_link_libraries(raw_marker_bridge_node ViconDataStreamSDK_CPP ${catkin_LIBRARIES})
 
 # TF publisher executable
 add_executable(tf_publisher_node src/tf_publisher_node.cpp)
