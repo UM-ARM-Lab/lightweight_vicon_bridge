@@ -1,0 +1,21 @@
+<launch>
+
+  <arg name="output" default="screen"/>
+  <arg name="tracker_hostname" default="192.168.2.161" />
+  <arg name="mocap_topic" default="/mocap_tracking"/>
+  <arg name="mocap_frame_prefix" default="mocap"/>
+
+  <node pkg="lightweight_vicon_bridge" type="lightweight_vicon_bridge_node" name="lightweight_vicon_bridge" output="$(arg output)">
+    <param name="tracker_topic" type="string" value="$(arg mocap_topic)" />
+    <param name="tracker_hostname" type="string" value="$(arg tracker_hostname)" />
+  </node>
+
+  <node pkg="lightweight_vicon_bridge" type="tf_publisher_node" name="mocap_tf_publisher_node" output="$(arg output)">
+    <param name="tracker_topic" type="string" value="$(arg mocap_topic)" />
+    <param name="transform_prefix" type="string" value="$(arg mocap_frame_prefix)" />
+  </node>
+
+  <node pkg="lightweight_vicon_bridge" type="raw_marker_bridge_node" name="mocap_marker_publisher_node" output="$(arg output)">
+  </node>
+
+</launch>
