@@ -6,6 +6,7 @@
 
 std::unique_ptr<tf::TransformBroadcaster> g_tf_broadcaster;
 std::string g_transform_prefix;
+bool g_override_timestamps;
 
 void MocapMsgCB(lightweight_vicon_bridge::MocapState msg)
 {
@@ -24,8 +25,16 @@ void MocapMsgCB(lightweight_vicon_bridge::MocapState msg)
                 current_tf.setOrigin(tf::Vector3(current_segment.transform.translation.x, current_segment.transform.translation.y, current_segment.transform.translation.z));
                 current_tf.setRotation(tf::Quaternion(current_segment.transform.rotation.x, current_segment.transform.rotation.y, current_segment.transform.rotation.z, current_segment.transform.rotation.w));
                 /* Publish TF */
-                tf::StampedTransform current_tf_msg(current_tf, msg.header.stamp, msg.header.frame_id, full_segment_name);
-                g_tf_broadcaster->sendTransform(current_tf_msg);
+                if (!g_override_timestamps)
+                {
+                    tf::StampedTransform current_tf_msg(current_tf, msg.header.stamp, msg.header.frame_id, full_segment_name);
+                    g_tf_broadcaster->sendTransform(current_tf_msg);
+                }
+                else
+                {
+                    tf::StampedTransform current_tf_msg(current_tf, ros::Time::now(), msg.header.frame_id, full_segment_name);
+                    g_tf_broadcaster->sendTransform(current_tf_msg);
+                }
             }
         }
     }
@@ -40,6 +49,15 @@ int main(int argc, char** argv)
     std::string tracker_topic;
     nhp.param(std::string("tracker_topic"), tracker_topic, std::string("mocap_tracking"));
     nhp.param(std::string("transform_prefix"), g_transform_prefix, std::string("mocap"));
+    nhp.param(std::string("override_timestamps"), g_override_timestamps, false);
+    if (g_override_timestamps)
+    {
+        ROS_WARN("Parameter override_timestamps is set to TRUE - TF publisher will overwrite the timestamps from the mocap system with the current time. USE CAREFULLY!");
+    }
+    else
+    {
+        ROS_INFO("Parameter override_timestamps is set to FALSE - TF publisher will use the timestamps from the mocap system.");
+    }
     // Create the TF broadcaster
     g_tf_broadcaster = std::unique_ptr<tf::TransformBroadcaster>(new tf::TransformBroadcaster());
     // Create the mocap data subscriber
