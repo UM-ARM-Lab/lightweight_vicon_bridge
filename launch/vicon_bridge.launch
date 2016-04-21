@@ -9,6 +9,7 @@
   <arg name="tracker_origin_frame_name" default="mocap_world"/>
   <arg name="stream_mode" default="ServerPush"/>
   <arg name="override_timestamps" default="false"/>
+  <arg name="use_sim_time" default="false"/>
 
   <arg name="publish_raw_markers" default="false"/>
 
@@ -19,6 +20,7 @@
     <param name="tracker_name" type="string" value="$(arg tracker_name)"/>
     <param name="tracker_topic" type="string" value="$(arg object_tracker_topic)"/>
     <param name="stream_mode" type="string" value="$(arg stream_mode)"/>
+    <param name="use_sim_time" type="bool" value="$(arg use_sim_time)"/>
   </node>
 
   <node if="$(arg publish_raw_markers)" pkg="lightweight_vicon_bridge" type="raw_marker_bridge_node" name="raw_marker_bridge" output="$(arg output)">
@@ -28,11 +30,13 @@
     <param name="tracker_name" type="string" value="$(arg tracker_name)"/>
     <param name="tracker_topic" type="string" value="$(arg marker_tracker_topic)"/>
     <param name="stream_mode" type="string" value="$(arg stream_mode)"/>
+    <param name="use_sim_time" type="bool" value="$(arg use_sim_time)"/>
   </node>
 
   <node pkg="lightweight_vicon_bridge" type="tf_publisher_node" name="mocap_tf_publisher_node" output="$(arg output)">
     <param name="tracker_topic" type="string" value="$(arg object_tracker_topic)"/>
     <param name="override_timestamps" type="bool" value="$(arg override_timestamps)"/>
+    <param name="use_sim_time" type="bool" value="$(arg use_sim_time)"/>
   </node>
 
 </launch>

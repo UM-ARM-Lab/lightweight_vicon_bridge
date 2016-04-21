@@ -47,8 +47,19 @@ int main(int argc, char** argv)
     ros::NodeHandle nh;
     ros::NodeHandle nhp("~");
     std::string tracker_topic;
+    bool use_sim_time = false;
     nhp.param(std::string("tracker_topic"), tracker_topic, std::string("mocap_tracking"));
     nhp.param(std::string("override_timestamps"), g_override_timestamps, false);
+    nhp.param(std::string("use_sim_time"), use_sim_time, false);
+    if (use_sim_time)
+    {
+        ROS_INFO("Parameter use_sim_time set, waiting until we have valid timing data");
+        // Handle the sim time issue
+        while (ros::Time::now().toSec() <= 0.02)
+        {
+            ros::spinOnce();
+        }
+    }
     if (g_override_timestamps)
     {
         ROS_WARN("Parameter override_timestamps is set to TRUE - TF publisher will overwrite the timestamps from the mocap system with the current time. USE CAREFULLY!");
