@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     nhp.param(std::string("tracker_hostname"), tracker_hostname, std::string("192.168.2.161"));
     nhp.param(std::string("tracker_port"), tracker_port, std::string("801"));
     nhp.param(std::string("tracker_frame_name"), tracker_frame_name, std::string("mocap_world"));
-    nhp.param(std::string("tracker_name"), tracker_name, std::string("vicon"));
+    nhp.param(std::string("tracker_name"), tracker_name, std::string("mocap"));
     nhp.param(std::string("tracker_topic"), tracker_topic, std::string("mocap_markers"));
     nhp.param(std::string("stream_mode"), stream_mode, std::string("ServerPush"));
     // Check the stream mode
@@ -79,10 +79,10 @@ int main(int argc, char** argv)
         // Get a new frame and process it
         if (sdk_client.GetFrame().Result == ViconDataStreamSDK::CPP::Result::Success)
         {
-            double total_latency = sdk_client.GetLatencyTotal().Total;
-            ros::Duration latency_duration(total_latency);
-            ros::Time current_time = ros::Time::now();
-            ros::Time frame_time = current_time - latency_duration;
+            const double total_latency = sdk_client.GetLatencyTotal().Total;
+            const ros::Duration latency_duration(total_latency);
+            const ros::Time current_time = ros::Time::now();
+            const ros::Time frame_time = current_time - latency_duration;
             lightweight_vicon_bridge::MocapMarkerArray state_msg;
             state_msg.header.frame_id = tracker_frame_name;
             state_msg.header.stamp = frame_time;

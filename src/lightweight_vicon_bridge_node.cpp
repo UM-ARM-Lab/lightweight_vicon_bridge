@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     nhp.param(std::string("tracker_hostname"), tracker_hostname, std::string("192.168.2.161"));
     nhp.param(std::string("tracker_port"), tracker_port, std::string("801"));
     nhp.param(std::string("tracker_frame_name"), tracker_frame_name, std::string("mocap_world"));
-    nhp.param(std::string("tracker_name"), tracker_name, std::string("vicon"));
+    nhp.param(std::string("tracker_name"), tracker_name, std::string("mocap"));
     nhp.param(std::string("tracker_topic"), tracker_topic, std::string("mocap_tracking"));
     nhp.param(std::string("stream_mode"), stream_mode, std::string("ServerPush"));
     // Check the stream mode
@@ -79,28 +79,28 @@ int main(int argc, char** argv)
         // Get a new frame and process it
         if (sdk_client.GetFrame().Result == ViconDataStreamSDK::CPP::Result::Success)
         {
-            double total_latency = sdk_client.GetLatencyTotal().Total;
-            ros::Duration latency_duration(total_latency);
-            ros::Time current_time = ros::Time::now();
-            ros::Time frame_time = current_time - latency_duration;
+            const double total_latency = sdk_client.GetLatencyTotal().Total;
+            const ros::Duration latency_duration(total_latency);
+            const ros::Time current_time = ros::Time::now();
+            const ros::Time frame_time = current_time - latency_duration;
             lightweight_vicon_bridge::MocapState state_msg;
             state_msg.header.frame_id = tracker_frame_name;
             state_msg.header.stamp = frame_time;
             state_msg.tracker_name = tracker_name;
             // Loop through the tracked objects and add them to the message
-            unsigned int objects = sdk_client.GetSubjectCount().SubjectCount;
+            const unsigned int objects = sdk_client.GetSubjectCount().SubjectCount;
             for (unsigned int idx_o = 0; idx_o < objects; idx_o++)
             {
-                std::string object_name = sdk_client.GetSubjectName(idx_o).SubjectName;
+                const std::string object_name = sdk_client.GetSubjectName(idx_o).SubjectName;
                 lightweight_vicon_bridge::MocapObject object_msg;
                 object_msg.name = object_name;
                 // Loop through the segments of the object
-                unsigned int segments = sdk_client.GetSegmentCount(object_name).SegmentCount;
+                const unsigned int segments = sdk_client.GetSegmentCount(object_name).SegmentCount;
                 for (unsigned int idx_s = 0; idx_s < segments; idx_s++)
                 {
-                    std::string segment_name = sdk_client.GetSegmentName(object_name, idx_s).SegmentName;
-                    ViconDataStreamSDK::CPP::Output_GetSegmentGlobalTranslation segment_position = sdk_client.GetSegmentGlobalTranslation(object_name, segment_name);
-                    ViconDataStreamSDK::CPP::Output_GetSegmentGlobalRotationQuaternion segment_rotation = sdk_client.GetSegmentGlobalRotationQuaternion(object_name, segment_name);
+                    const std::string segment_name = sdk_client.GetSegmentName(object_name, idx_s).SegmentName;
+                    const ViconDataStreamSDK::CPP::Output_GetSegmentGlobalTranslation segment_position = sdk_client.GetSegmentGlobalTranslation(object_name, segment_name);
+                    const ViconDataStreamSDK::CPP::Output_GetSegmentGlobalRotationQuaternion segment_rotation = sdk_client.GetSegmentGlobalRotationQuaternion(object_name, segment_name);
                     lightweight_vicon_bridge::MocapSegment segment_msg;
                     segment_msg.name = segment_name;
                     /* Note - Vicon SDK uses millimeters for position */

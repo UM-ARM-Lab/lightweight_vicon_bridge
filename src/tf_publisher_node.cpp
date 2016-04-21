@@ -5,21 +5,21 @@
 #include <tf/transform_broadcaster.h>
 
 std::unique_ptr<tf::TransformBroadcaster> g_tf_broadcaster;
-std::string g_transform_prefix;
 bool g_override_timestamps;
 
 void MocapMsgCB(lightweight_vicon_bridge::MocapState msg)
 {
+    const std::string& mocap_name = msg.tracker_name;
     for (size_t idx_o = 0; idx_o < msg.tracked_objects.size(); idx_o++)
     {
-        lightweight_vicon_bridge::MocapObject current_object = msg.tracked_objects[idx_o];
+        const lightweight_vicon_bridge::MocapObject current_object = msg.tracked_objects[idx_o];
         for (size_t idx_s = 0; idx_s < current_object.segments.size(); idx_s++)
         {
-            lightweight_vicon_bridge::MocapSegment current_segment = current_object.segments[idx_s];
+            const lightweight_vicon_bridge::MocapSegment current_segment = current_object.segments[idx_s];
             if (!current_segment.occluded)
             {
                 /* Get the full segment name */
-                std::string full_segment_name = g_transform_prefix + "/" + current_object.name + "/" + current_segment.name;
+                const std::string full_segment_name = mocap_name + "_" + current_object.name + "_" + current_segment.name;
                 /* Convert to a TF transform and publish */
                 tf::Transform current_tf;
                 current_tf.setOrigin(tf::Vector3(current_segment.transform.translation.x, current_segment.transform.translation.y, current_segment.transform.translation.z));
@@ -27,12 +27,12 @@ void MocapMsgCB(lightweight_vicon_bridge::MocapState msg)
                 /* Publish TF */
                 if (!g_override_timestamps)
                 {
-                    tf::StampedTransform current_tf_msg(current_tf, msg.header.stamp, msg.header.frame_id, full_segment_name);
+                    const tf::StampedTransform current_tf_msg(current_tf, msg.header.stamp, msg.header.frame_id, full_segment_name);
                     g_tf_broadcaster->sendTransform(current_tf_msg);
                 }
                 else
                 {
-                    tf::StampedTransform current_tf_msg(current_tf, ros::Time::now(), msg.header.frame_id, full_segment_name);
+                    const tf::StampedTransform current_tf_msg(current_tf, ros::Time::now(), msg.header.frame_id, full_segment_name);
                     g_tf_broadcaster->sendTransform(current_tf_msg);
                 }
             }
@@ -48,7 +48,6 @@ int main(int argc, char** argv)
     ros::NodeHandle nhp("~");
     std::string tracker_topic;
     nhp.param(std::string("tracker_topic"), tracker_topic, std::string("mocap_tracking"));
-    nhp.param(std::string("transform_prefix"), g_transform_prefix, std::string("mocap"));
     nhp.param(std::string("override_timestamps"), g_override_timestamps, false);
     if (g_override_timestamps)
     {
@@ -63,7 +62,7 @@ int main(int argc, char** argv)
     // Create the mocap data subscriber
     ros::Subscriber mocap_sub = nh.subscribe(tracker_topic, 1, MocapMsgCB);
     // Start streaming data
-    ROS_INFO("Streaming data...");
+    ROS_INFO("Broadcasting transforms...");
     ros::Rate spin_rate(200.0);
     while (ros::ok())
     {
