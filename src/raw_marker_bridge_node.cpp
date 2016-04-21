@@ -17,12 +17,23 @@ int main(int argc, char** argv)
     std::string tracker_name;
     std::string tracker_topic;
     std::string stream_mode;
+    bool use_sim_time = false;
     nhp.param(std::string("tracker_hostname"), tracker_hostname, std::string("192.168.2.161"));
     nhp.param(std::string("tracker_port"), tracker_port, std::string("801"));
     nhp.param(std::string("tracker_frame_name"), tracker_frame_name, std::string("mocap_world"));
     nhp.param(std::string("tracker_name"), tracker_name, std::string("mocap"));
     nhp.param(std::string("tracker_topic"), tracker_topic, std::string("mocap_markers"));
     nhp.param(std::string("stream_mode"), stream_mode, std::string("ServerPush"));
+    nhp.param(std::string("use_sim_time"), use_sim_time, false);
+    if (use_sim_time)
+    {
+        ROS_INFO("Parameter use_sim_time set, waiting until we have valid timing data");
+        // Handle the sim time issue
+        while (ros::Time::now().toSec() <= 0.02)
+        {
+            ros::spinOnce();
+        }
+    }
     // Check the stream mode
     if (stream_mode == std::string("ServerPush") || stream_mode == std::string("ClientPullPreFetch") || stream_mode == std::string("ClientPull"))
     {
