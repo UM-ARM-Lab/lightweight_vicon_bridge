@@ -93,7 +93,16 @@ int main(int argc, char** argv)
             const double total_latency = sdk_client.GetLatencyTotal().Total;
             const ros::Duration latency_duration(total_latency);
             const ros::Time current_time = ros::Time::now();
-            const ros::Time frame_time = current_time - latency_duration;
+            ros::Time raw_frame_time(0.0);
+            if (current_time.toSec() > latency_duration.toSec())
+            {
+                raw_frame_time = current_time - latency_duration;
+            }
+            else
+            {
+                ROS_WARN("(INVALID FRAME TIME) Latency estimate is greater than current time, leaving time at zero");
+            }
+            const ros::Time frame_time = raw_frame_time;
             lightweight_vicon_bridge::MocapState state_msg;
             state_msg.header.frame_id = tracker_frame_name;
             state_msg.header.stamp = frame_time;
