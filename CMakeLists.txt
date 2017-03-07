@@ -68,7 +68,6 @@ generate_messages(DEPENDENCIES geometry_msgs)
 catkin_package(#  INCLUDE_DIRS include
 #  LIBRARIES lightweight_vicon_bridge
  CATKIN_DEPENDS std_msgs geometry_msgs roscpp rospy tf message_runtime
- DEPENDS system_lib
 )
 
 ###########
