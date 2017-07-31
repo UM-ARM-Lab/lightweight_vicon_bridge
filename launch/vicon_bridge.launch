@@ -1,7 +1,7 @@
 <launch>
 
   <arg name="output" default="screen"/>
-  <arg name="tracker_hostname" default="192.168.2.161"/>
+  <arg name="tracker_hostname" default="10.10.10.5"/>
   <arg name="tracker_port" default="801"/>
   <arg name="tracker_name" default="mocap"/>
   <arg name="object_tracker_topic" default="mocap_tracking"/>
