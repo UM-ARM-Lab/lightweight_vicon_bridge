@@ -39,12 +39,14 @@
         <param name="use_sim_time" type="bool" value="$(arg use_sim_time)"/>
     </node>
 
-    <!-- Transform from the mocap calibration plate to a floor aligned frame.
-         Calculated by placing a mocap plate on the floor to get the orientation and Z position,
-         then tweaked in X and Y to roughly align with previously used coordinates -->
-    <node pkg="tf2_ros" type="static_transform_publisher" name="fake_world_origin" required="true" 
-                args="0.4 -0.5 -0.836687027768        -0.00998935896735 -0.0667395626428 0.0279926132974 0.997327657837        mocap_world world_origin">
-        <param name="use_sim_time" value="$(arg use_sim_time)"/>
-    </node>
+    <group ns="static_transform_publishers">
+        <!-- Transform from the mocap calibration plate to a floor aligned frame.
+             Calculated by placing a mocap plate on the floor to get the orientation and Z position,
+             then tweaked in X and Y to roughly align with previously used coordinates -->
+        <node pkg="tf2_ros" type="static_transform_publisher" name="fake_world_origin" required="true"
+                    args="0.4 -0.5 -0.836687027768        -0.00998935896735 -0.0667395626428 0.0279926132974 0.997327657837        mocap_world world_origin">
+            <param name="use_sim_time" value="$(arg use_sim_time)"/>
+        </node>
+    </group>
 
 </launch>
