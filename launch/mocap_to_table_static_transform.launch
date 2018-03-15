@@ -1,0 +1,10 @@
+<launch>
+    <arg name="use_sim_time" default="false"/>
+
+    <group ns="static_transform_publishers">
+        <node pkg="tf2_ros" type="static_transform_publisher" name="surface_location_broadcaster" required="true"
+              args="0 0 0 0 0 0 mocap_FoldingTableSurface_FoldingTableSurface table_surface">
+            <param name="use_sim_time" value="$(arg use_sim_time)"/>
+        </node>
+    </group>
+</launch>
