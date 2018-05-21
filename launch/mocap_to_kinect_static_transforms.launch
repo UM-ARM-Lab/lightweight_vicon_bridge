@@ -28,21 +28,6 @@
                    -0.506193991453260   0.500387254594431  -0.495676785109921   0.497679377872098
                    mocap_Kinect2BlockRoof_Kinect2BlockRoof   kinect2_roof_link"/>
 
-        <!-- These values were tweaked to visually match better for the MPS project-->
-        <!--<node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_roof_tf_broadcaster" required="true"-->
-              <!--args="2.219   -0.327   1.993-->
-                   <!-- -0.718206154753868   0.693198976663552  -0.047013494809794   0.038010910697280-->
-                    <!--mocap_world kinect2_roof_link">-->
-            <!--<param name="use_sim_time" value="$(arg use_sim_time)"/>-->
-        <!--</node>-->
-              <!--args="0.031008404506653   0.021057223721192  -0.030030148860467        0.499966532285212  -0.504136092343149   0.491916169558652  -0.503883666254844    /mocap_Kinect2BlockRoof_Kinect2BlockRoof   /kinect2_roof_link">-->
-
-        <!-- Tweaked by hand for visually correct data, using qhd stream -->
-        <!--<node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_victor_head_tf_broadcaster" required="true"-->
-              <!--args="0.035   0.02   -0.03          0.515983100216175  -0.515983100216175   0.483488821268191  -0.483488821268191         mocap_Kinect2VictorHead_Kinect2VictorHead   kinect2_victor_head_link">-->
-            <!--<param name="use_sim_time" value="$(arg use_sim_time)"/>-->
-        <!--</node>-->
-
         <!-- Calculated using script from robot_calibration package using the QHD channel: DON'T USE SD!!!! -->
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_victor_head_tf_broadcaster" required="true"
               args="0.031553692705093117, 0.027052715853432538, -0.027229205965475067
