@@ -30,8 +30,8 @@
 
         <!-- Calculated using script from robot_calibration package using the QHD channel: DON'T USE SD!!!! -->
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_victor_head_mocap_tf_shim_broadcaster" required="true"
-              args="0.031553692705093117, 0.027052715853432538, -0.027229205965475067
-                   -0.51512778  0.51795713 -0.48424314  0.48153127
+              args="0.022667163163921589, 0.041213316298791644, 0.035214675131280876
+                   -0.52746307  0.53944846 -0.46849528  0.45966318
                     mocap_Kinect2VictorHead_Kinect2VictorHead   kinect2_victor_head_link">
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
         </node>
