@@ -24,21 +24,21 @@
              the above transforms and the transform between "kinect2_link" and
              "kinect2_ir_optical_frame" as published by kinect2_bridge -->
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_roof_mocap_tf_shim_broadcaster" required="true"
-              args="0.031008404506653   0.021057223721192  -0.016030148860467
-                   -0.506193991453260   0.500387254594431  -0.495676785109921   0.497679377872098
+              args="0.029831 0.0046652 -0.043371
+                   -0.49818 0.49553 -0.49278 0.51326
                    mocap_Kinect2BlockRoof_Kinect2BlockRoof   kinect2_roof_link"/>
 
         <!-- Calculated using script from robot_calibration package using the QHD channel: DON'T USE SD!!!! -->
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_victor_head_mocap_tf_shim_broadcaster" required="true"
-              args="0.030331 0.038823 -0.024877
-                    -0.51334 0.51888 -0.48881 0.477820
+              args="0.034604 0.017626 -0.032391
+                    0.51701 -0.51104 0.48439 -0.48673
                     mocap_Kinect2VictorHead_Kinect2VictorHead   kinect2_victor_head_link">
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
         </node>
 
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_tripodA_mocap_tf_shim_broadcaster" required="true"
-              args="0.032249774298347855, 0.022693218779784037, -0.034619685364835173
-                    -0.51315569  0.53988995 -0.48036925  0.46307176
+              args="0.029986 0.009266 -0.027604
+                    -0.50794 0.54307 -0.47264 0.47296
                     mocap_Kinect2TripodA_Kinect2TripodA   kinect2_tripodA_link">
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
         </node>
