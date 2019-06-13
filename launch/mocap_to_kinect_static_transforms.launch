@@ -4,41 +4,23 @@
 
     <group ns="static_transform_publishers">
         <!-- Note that when specifying orientation with 3 numbers, it's yaw pitch roll -->
+        <!-- Calculated using https://github.com/UM-ARM-Lab/camera_robot_calibration -->
 
-        <!-- This transform was calculated by setting the used by the folding table
-             as seen from the kinect frame to match the frame reported by mocap -->
-        <!-- node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_mocap_tf_shim_broadcaster" required="true" args="0.027532004296964008, 0.048942209950519344, -0.016327834523498286     -0.5126711573666899 0.49168739305024817   -0.4939462922935266    0.5014268164440625   /mocap_Kinect2BlockRoof_Kinect2BlockRoof   /kinect2_ir_optical_frame">
-            <param name="use_sim_time" value="$(arg use_sim_time)"/>
-        </node -->
-
-        <!-- This is the raw transform calculated from point cloud data the puts the
-             Kinect in the correct position relative to the table. We don't use this
-             transform because it is specific to the particular configuration when
-             we recorded the data. It was used however to calculate the above transform -->
-        <!--node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_mocap_tf_shim_broadcaster" required="true" args="-0.077963592813056  -0.038134521425926   1.624122269618843                0.720915512170930  -0.692935388982982   0.008126034064077  -0.007438990302292             /mocap_FoldingTableSurface_FoldingTableSurface   /kinect2_ir_optical_frame">
-            <param name="use_sim_time" value="$(arg use_sim_time)"/>
-        </node-->
-
-        <!-- This transform is used to connect the mocap data to the "kinect2_link" frame
-             that the kinect2_bridge data uses as its reference. It was calculated using
-             the above transforms and the transform between "kinect2_link" and
-             "kinect2_ir_optical_frame" as published by kinect2_bridge -->
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_roof_mocap_tf_shim_broadcaster" required="true"
-              args="0.031008404506653   0.021057223721192  -0.016030148860467
-                   -0.506193991453260   0.500387254594431  -0.495676785109921   0.497679377872098
+              args="0.029831 0.0046652 -0.043371
+                   -0.49818 0.49553 -0.49278 0.51326
                    mocap_Kinect2BlockRoof_Kinect2BlockRoof   kinect2_roof_link"/>
 
-        <!-- Calculated using script from robot_calibration package using the QHD channel: DON'T USE SD!!!! -->
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_victor_head_mocap_tf_shim_broadcaster" required="true"
-              args="0.041582505285583826   0.0096945631888913641   0.012867742405245464
-                    0.5260882  -0.52020217  0.4751363  -0.47630495
+              args="0.034604 0.017626 -0.032391
+                    0.51701 -0.51104 0.48439 -0.48673
                     mocap_Kinect2VictorHead_Kinect2VictorHead   kinect2_victor_head_link">
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
         </node>
 
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_tripodA_mocap_tf_shim_broadcaster" required="true"
-              args="0.032249774298347855, 0.022693218779784037, -0.034619685364835173
-                    -0.51315569  0.53988995 -0.48036925  0.46307176
+              args="0.029986 0.009266 -0.027604
+                    -0.50794 0.54307 -0.47264 0.47296
                     mocap_Kinect2TripodA_Kinect2TripodA   kinect2_tripodA_link">
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
         </node>
