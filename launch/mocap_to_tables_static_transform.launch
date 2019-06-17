@@ -11,7 +11,7 @@
     <group ns="static_transform_publishers">
         <node pkg="tf2_ros" type="static_transform_publisher" name="short_childs_table_surface_location_mocap_tf_shim_broadcaster" required="true"
               args="6.72367356986e-05   0.00038012621654   0.0203414052661
-                    -0.0074528945348   0.0306253883186   0.00105780901029   0.999502586787
+                    0 0 0 1
                     mocap_ShortChildsTable_ShortChildsTable short_childs_table_surface">
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
         </node>
