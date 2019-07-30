@@ -18,6 +18,7 @@ int main(int argc, char** argv)
     std::string tracker_topic;
     std::string stream_mode;
     bool use_sim_time = false;
+    bool free_markers_only = false;
     nhp.param(std::string("tracker_hostname"), tracker_hostname, std::string("192.168.2.161"));
     nhp.param(std::string("tracker_port"), tracker_port, std::string("801"));
     nhp.param(std::string("tracker_frame_name"), tracker_frame_name, std::string("mocap_world"));
@@ -25,6 +26,7 @@ int main(int argc, char** argv)
     nhp.param(std::string("tracker_topic"), tracker_topic, std::string("mocap_markers"));
     nhp.param(std::string("stream_mode"), stream_mode, std::string("ServerPush"));
     nhp.param(std::string("use_sim_time"), use_sim_time, false);
+    nhp.param(std::string("free_markers_only"), free_markers_only, false);
     if (use_sim_time)
     {
         ROS_INFO("Parameter use_sim_time set, waiting until we have valid timing data");
@@ -62,6 +64,11 @@ int main(int argc, char** argv)
     }
     ROS_INFO("...connected!");
     // Enable data
+    if (!free_markers_only)
+    {
+        sdk_client.EnableSegmentData();
+        sdk_client.EnableMarkerData();
+    }
     sdk_client.EnableUnlabeledMarkerData();
     // Set the axes (right-handed, X-forwards, Y-left, Z-up, same as ROS)
     sdk_client.SetAxisMapping(ViconDataStreamSDK::CPP::Direction::Forward, ViconDataStreamSDK::CPP::Direction::Left, ViconDataStreamSDK::CPP::Direction::Up);
@@ -87,6 +94,13 @@ int main(int argc, char** argv)
     ROS_INFO("Streaming data...");
     while (ros::ok())
     {
+        if (mocap_pub.getNumSubscribers() == 0 && !mocap_pub.isLatched())
+        {
+            ros::spinOnce();
+            ros::Duration(0.01).sleep();
+            continue;
+        }
+
         // Get a new frame and process it
         if (sdk_client.GetFrame().Result == ViconDataStreamSDK::CPP::Result::Success)
         {
@@ -107,6 +121,32 @@ int main(int argc, char** argv)
             state_msg.header.frame_id = tracker_frame_name;
             state_msg.header.stamp = frame_time;
             state_msg.tracker_name = tracker_name;
+
+            // Get the labeled markers
+            if (!free_markers_only)
+            {
+                const unsigned int objects = sdk_client.GetSubjectCount().SubjectCount;
+                for (unsigned int idx_o = 0; idx_o < objects; idx_o++)
+                {
+                    const std::string object_name = sdk_client.GetSubjectName(idx_o).SubjectName;
+
+                    unsigned int labelled_markers = sdk_client.GetMarkerCount(object_name).MarkerCount;
+                    for (unsigned int idx = 0; idx < labelled_markers; idx++)
+                    {
+                        const std::string marker_name = sdk_client.GetMarkerName(object_name, idx).MarkerName;
+                        ViconDataStreamSDK::CPP::Output_GetMarkerGlobalTranslation position = sdk_client.GetMarkerGlobalTranslation(
+                            object_name, marker_name);
+                        lightweight_vicon_bridge::MocapMarker marker_msg;
+                        marker_msg.index = idx;
+                        marker_msg.position.x = position.Translation[0] * 0.001;
+                        marker_msg.position.y = position.Translation[1] * 0.001;
+                        marker_msg.position.z = position.Translation[2] * 0.001;
+                        state_msg.markers.push_back(marker_msg);
+                    }
+
+                }
+            }
+
             // Get the unlabeled markers
             unsigned int unlabelled_markers = sdk_client.GetUnlabeledMarkerCount().MarkerCount;
             for (unsigned int idx = 0; idx < unlabelled_markers; idx++)

@@ -91,7 +91,7 @@ endif(CMAKE_SIZEOF_VOID_P MATCHES "8")
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
-include_directories(${catkin_INCLUDE_DIRS} ${VICON_SDK_INCLUDE_DIR})
+include_directories(SYSTEM ${catkin_INCLUDE_DIRS} ${VICON_SDK_INCLUDE_DIR})
 link_directories(${VICON_SDK_LINK_DIR})
 
 set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} -O3")
