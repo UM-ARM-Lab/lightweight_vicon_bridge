@@ -7,6 +7,13 @@
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
         </node>
     </group>
+    
+    <group ns="static_transform_publishers">
+        <node pkg="tf2_ros" type="static_transform_publisher" name="clear_table_surface_location_mocap_tf_shim_broadcaster" required="true"
+              args="0 0 0 3.1415926 0 0 mocap_ClearTableSurface_ClearTableSurface clear_table_surface">
+            <param name="use_sim_time" value="$(arg use_sim_time)"/>
+        </node>
+    </group>
 
     <group ns="static_transform_publishers">
         <node pkg="tf2_ros" type="static_transform_publisher" name="short_childs_table_surface_location_mocap_tf_shim_broadcaster" required="true"
