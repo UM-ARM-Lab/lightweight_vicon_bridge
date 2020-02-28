@@ -1,26 +1,27 @@
 <launch>
     <arg name="use_sim_time" default="false"/>
-
     <group ns="static_transform_publishers">
-        <node pkg="tf2_ros" type="static_transform_publisher" name="folding_table_surface_location_mocap_tf_shim_broadcaster" required="true"
-              args="0 0 0 0 0 0 mocap_FoldingTableSurface_FoldingTableSurface folding_table_surface">
+        <!--node pkg="tf2_ros" type="static_transform_publisher" name="folding_table_surface_location_mocap_tf_shim_broadcaster" required="true"
+              args="0 0 0
+                    0 0 0
+                    mocap_FoldingTableSurface_FoldingTableSurface folding_table_surface">
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
-        </node>
-    </group>
-    
-    <group ns="static_transform_publishers">
-        <node pkg="tf2_ros" type="static_transform_publisher" name="clear_table_surface_location_mocap_tf_shim_broadcaster" required="true"
-              args="0 0 0 3.1415926 0 0 mocap_ClearTableSurface_ClearTableSurface clear_table_surface">
-            <param name="use_sim_time" value="$(arg use_sim_time)"/>
-        </node>
-    </group>
-
-    <group ns="static_transform_publishers">
-        <node pkg="tf2_ros" type="static_transform_publisher" name="short_childs_table_surface_location_mocap_tf_shim_broadcaster" required="true"
+        </node-->
+        
+        <!-- node pkg="tf2_ros" type="static_transform_publisher" name="short_childs_table_surface_location_mocap_tf_shim_broadcaster" required="true"
               args="6.72367356986e-05   0.00038012621654   0.0203414052661
                     0 0 0 1
                     mocap_ShortChildsTable_ShortChildsTable short_childs_table_surface">
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
+        </node -->
+   
+    	<!-- Transform set by manually aligning point cloud to table --> 
+        <node pkg="tf2_ros" type="static_transform_publisher" name="clear_table_surface_location_mocap_tf_shim_broadcaster" required="true"
+              args="0.001300047885324  -0.009913117412028  -0.000199946670933
+                    -0.009328718104801  -0.010627716277577   0.997781962965812  -0.065047529125528
+                    mocap_ClearTableSurface_ClearTableSurface clear_table_surface">
+            <param name="use_sim_time" value="$(arg use_sim_time)"/>
         </node>
     </group>
 </launch>
+

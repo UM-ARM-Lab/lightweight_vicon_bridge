@@ -20,7 +20,7 @@
 
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_tripodA_mocap_tf_shim_broadcaster" required="true"
               args="0.029986 0.009266 -0.027604
-                    -0.50794 0.54307 -0.47264 0.47296
+                    0.519602833351645  -0.554713873174764   0.458915982858208  -0.460110351065567
                     mocap_Kinect2TripodA_Kinect2TripodA   kinect2_tripodA_link">
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
         </node>
