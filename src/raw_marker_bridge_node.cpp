@@ -143,6 +143,8 @@ make_marker_viz(const std::string &tracker_frame_name, const ros::Time &frame_ti
     marker_viz_msg.color.g = 0.2;
     marker_viz_msg.color.b = 0.2;
     marker_viz_msg.scale.x = 0.005;
+    marker_viz_msg.scale.y = 0.005;
+    marker_viz_msg.scale.z = 0.005;
     marker_viz_msg.ns = std::to_string(idx);
     marker_viz_msg.pose.position.x = x;
     marker_viz_msg.pose.position.y = y;
