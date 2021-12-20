@@ -135,7 +135,7 @@ make_marker_viz(const std::string &tracker_frame_name, const ros::Time &frame_ti
                 const double y, const double z) {
     visualization_msgs::Marker marker_viz_msg;
     marker_viz_msg.action = visualization_msgs::Marker::ADD;
-    marker_viz_msg.type = visualization_msgs::Marker::SPHERE_LIST;
+    marker_viz_msg.type = visualization_msgs::Marker::SPHERE;
     marker_viz_msg.header.frame_id = tracker_frame_name;
     marker_viz_msg.header.stamp = frame_time;
     marker_viz_msg.color.a = 1.0;
