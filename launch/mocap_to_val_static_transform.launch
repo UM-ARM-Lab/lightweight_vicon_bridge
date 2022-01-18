@@ -2,8 +2,8 @@
     <arg name="use_sim_time" default="false"/>
 
     <group ns="static_transform_publishers">
-        <node pkg="tf2_ros" type="static_transform_publisher" name="val_root_mocap_tf_shim_broadcaster" required="true"
-              args="0 0 0 0 0 0 mocap_val_root_val_root base_link">
+        <node pkg="tf" type="static_transform_publisher" name="val_root_mocap_tf_shim_broadcaster" required="true"
+              args="-0.000005  0.000002  0.000005  0.        0.000011  0.000001 mocap_val_root_val_root base_link 100">
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
         </node>
     </group>

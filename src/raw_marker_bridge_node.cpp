@@ -3,12 +3,11 @@
 #include <string>
 #include <lightweight_vicon_bridge/MocapMarkerArray.h>
 #include <visualization_msgs/Marker.h>
-#include <visualization_msgs/MarkerArray.h>
+#include <geometry_msgs/Point.h>
 #include <Client.h>
 
 visualization_msgs::Marker
-make_marker_viz(const std::string &tracker_frame_name, const ros::Time &frame_time, unsigned int idx, double x,
-                double y, double z);
+make_marker_viz(const std::string &tracker_frame_name, const ros::Time &frame_time);
 
 int main(int argc, char **argv) {
     ros::init(argc, argv, "raw_marker_bridge");
@@ -52,7 +51,7 @@ int main(int argc, char **argv) {
     ROS_INFO("Connecting to Vicon Tracker (DataStream SDK) at hostname %s", tracker_hostname.c_str());
     // Make the ROS publisher
     ros::Publisher mocap_pub = nh.advertise<lightweight_vicon_bridge::MocapMarkerArray>(tracker_topic, 1, false);
-    ros::Publisher viz_pub = nh.advertise<visualization_msgs::MarkerArray>(viz_topic, 10, false);
+    ros::Publisher viz_pub = nh.advertise<visualization_msgs::Marker>(viz_topic, 10, false);
     // Initialize the DataStream SDK
     ViconDataStreamSDK::CPP::Client sdk_client;
     ROS_INFO("Connecting to server...");
@@ -99,7 +98,7 @@ int main(int argc, char **argv) {
             state_msg.header.frame_id = tracker_frame_name;
             state_msg.header.stamp = frame_time;
             state_msg.tracker_name = tracker_name;
-            visualization_msgs::MarkerArray viz_msg;
+            auto viz_msg = make_marker_viz(tracker_frame_name, frame_time);
             // Get the unlabeled markers
             unsigned int unlabelled_markers = sdk_client.GetUnlabeledMarkerCount().MarkerCount;
             for (unsigned int idx = 0; idx < unlabelled_markers; idx++) {
@@ -116,8 +115,11 @@ int main(int argc, char **argv) {
                 marker_msg.position.z = z;
                 state_msg.markers.push_back(marker_msg);
 
-                const auto marker_viz_msg = make_marker_viz(tracker_frame_name, frame_time, idx, x, y, z);
-                viz_msg.markers.push_back(marker_viz_msg);
+                geometry_msgs::Point point_msg;
+                point_msg.x = x;
+                point_msg.y = y;
+                point_msg.z = z;
+                viz_msg.points.push_back(point_msg);
             }
             mocap_pub.publish(state_msg);
             viz_pub.publish(viz_msg);
@@ -131,11 +133,10 @@ int main(int argc, char **argv) {
 }
 
 visualization_msgs::Marker
-make_marker_viz(const std::string &tracker_frame_name, const ros::Time &frame_time, unsigned int idx, const double x,
-                const double y, const double z) {
+make_marker_viz(const std::string &tracker_frame_name, const ros::Time &frame_time) {
     visualization_msgs::Marker marker_viz_msg;
     marker_viz_msg.action = visualization_msgs::Marker::ADD;
-    marker_viz_msg.type = visualization_msgs::Marker::SPHERE;
+    marker_viz_msg.type = visualization_msgs::Marker::SPHERE_LIST;
     marker_viz_msg.header.frame_id = tracker_frame_name;
     marker_viz_msg.header.stamp = frame_time;
     marker_viz_msg.color.a = 1.0;
@@ -145,10 +146,6 @@ make_marker_viz(const std::string &tracker_frame_name, const ros::Time &frame_ti
     marker_viz_msg.scale.x = 0.013;
     marker_viz_msg.scale.y = 0.013;
     marker_viz_msg.scale.z = 0.013;
-    marker_viz_msg.ns = std::to_string(idx);
-    marker_viz_msg.pose.position.x = x;
-    marker_viz_msg.pose.position.y = y;
-    marker_viz_msg.pose.position.z = z;
     marker_viz_msg.pose.orientation.w = 1;
     return marker_viz_msg;
 }

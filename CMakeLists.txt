@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(lightweight_vicon_bridge)
 
-find_package(catkin REQUIRED COMPONENTS geometry_msgs roscpp rospy tf message_generation)
+find_package(catkin REQUIRED COMPONENTS geometry_msgs roscpp rospy tf tf2_ros message_generation)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS signals)
@@ -67,7 +67,7 @@ generate_messages(DEPENDENCIES geometry_msgs)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(#  INCLUDE_DIRS include
 #  LIBRARIES lightweight_vicon_bridge
- CATKIN_DEPENDS std_msgs geometry_msgs roscpp rospy tf message_runtime
+ CATKIN_DEPENDS std_msgs geometry_msgs roscpp rospy tf tf2_ros message_runtime
 )
 
 ###########
