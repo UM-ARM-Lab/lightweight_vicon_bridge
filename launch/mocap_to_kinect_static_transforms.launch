@@ -1,26 +1,19 @@
 <launch>
-
-    <arg name="use_sim_time" default="false"/>
-
     <group ns="static_transform_publishers">
         <!-- Note that when specifying orientation with 3 numbers, it's yaw pitch roll -->
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_roof_mocap_tf_shim_broadcaster" required="true"
-              args="0.029831 0.0046652 -0.043371
-                   -0.49818 0.49553 -0.49278 0.51326
-                   mocap_Kinect2BlockRoof_Kinect2BlockRoof   kinect2_roof_link"/>
+              args="0.10770 0.01728 0.05440 -0.02345 0.05135 -0.13736
+                    mocap_kinect2_roof_kinect2_roof kinect2_roof_link"/>
 
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_victor_head_mocap_tf_shim_broadcaster" required="true"
-              args="0.034604 0.017626 -0.032391
-                    0.51701 -0.51104 0.48439 -0.48673
-                    mocap_Kinect2VictorHead_Kinect2VictorHead   kinect2_victor_head_link">
-            <param name="use_sim_time" value="$(arg use_sim_time)"/>
+              args="0 0 0
+                    0 0 0
+                    mocap_Kinect2VictorHead_Kinect2VictorHead kinect2_victor_head_link">
         </node>
 
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_tripodA_mocap_tf_shim_broadcaster" required="true"
-              args="0.04587 -0.03194 0.02361
-                    -0.05591 -0.05579 -0.02557
-                    mocap_Kinect2TripodA_Kinect2TripodA   kinect2_tripodA_link">
-            <param name="use_sim_time" value="$(arg use_sim_time)"/>
+              args="0.05761 -0.03026 0.02882 -0.04721 -0.07063 -0.01810
+                    mocap_kinect2_tripodA_kinect2_tripodA kinect2_tripodA_link">
         </node>
     </group>
 
