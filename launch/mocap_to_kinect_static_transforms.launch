@@ -1,11 +1,9 @@
 <launch>
-    
+
     <arg name="use_sim_time" default="false"/>
 
     <group ns="static_transform_publishers">
         <!-- Note that when specifying orientation with 3 numbers, it's yaw pitch roll -->
-        <!-- Calculated using https://github.com/UM-ARM-Lab/camera_robot_calibration -->
-
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_roof_mocap_tf_shim_broadcaster" required="true"
               args="0.029831 0.0046652 -0.043371
                    -0.49818 0.49553 -0.49278 0.51326
@@ -19,8 +17,8 @@
         </node>
 
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_tripodA_mocap_tf_shim_broadcaster" required="true"
-              args="0.029986 0.009266 -0.027604
-                    -0.50794 0.54307 -0.47264 0.47296
+              args="0.04587 -0.03194 0.02361
+                    -0.05591 -0.05579 -0.02557
                     mocap_Kinect2TripodA_Kinect2TripodA   kinect2_tripodA_link">
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
         </node>

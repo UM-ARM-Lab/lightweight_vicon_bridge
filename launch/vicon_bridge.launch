@@ -40,12 +40,8 @@
     </node>
 
     <group ns="static_transform_publishers">
-
-        <!-- Transform from the mocap calibration plate to a floor aligned frame.
-             Calculated by placing 4 mocap plates to set the origin, and the positive x and y axes 
-             See issue#5 for the placement of the mocap plates  -->
         <node pkg="tf2_ros" type="static_transform_publisher" name="fake_world_origin" required="true"
-              args="0.751024327411   -0.0822099292439   -0.842606341352        0.005632730525041  -0.016077801473191   0.015361651701277   0.999736863531414        mocap_world world_origin">
+              args="0 0 0     0 0 0  mocap_world world_origin">
             <param name="use_sim_time" value="$(arg use_sim_time)"/>
         </node>
     </group>
