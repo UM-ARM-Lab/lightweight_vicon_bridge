@@ -2,7 +2,7 @@
     <group ns="static_transform_publishers">
         <!-- Note that when specifying orientation with 3 numbers, it's yaw pitch roll -->
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_roof_mocap_tf_shim_broadcaster" required="true"
-              args="0.10770 0.01728 0.05440 -0.02345 0.05135 -0.13736
+              args="0 0 0 0 0 0
                     mocap_kinect2_roof_kinect2_roof kinect2_roof_link"/>
 
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_victor_head_mocap_tf_shim_broadcaster" required="true"
@@ -12,7 +12,7 @@
         </node>
 
         <node pkg="tf2_ros" type="static_transform_publisher" name="kinect2_tripodA_mocap_tf_shim_broadcaster" required="true"
-              args="0.05761 -0.03026 0.02882 -0.04721 -0.07063 -0.01810
+              args="0 0 0 0 0 0
                     mocap_kinect2_tripodA_kinect2_tripodA kinect2_tripodA_link">
         </node>
     </group>
