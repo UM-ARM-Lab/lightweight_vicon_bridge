@@ -2,9 +2,10 @@
 #include <iostream>
 #include <string>
 #include <lightweight_vicon_bridge/MocapState.h>
-#include <tf/transform_broadcaster.h>
+#include <tf2_ros/transform_broadcaster.h>
+#include <geometry_msgs/TransformStamped.h>
 
-std::unique_ptr<tf::TransformBroadcaster> g_tf_broadcaster;
+std::unique_ptr<tf2_ros::TransformBroadcaster> g_tf_broadcaster;
 bool g_override_timestamps;
 
 void MocapMsgCB(lightweight_vicon_bridge::MocapState msg)
@@ -21,18 +22,25 @@ void MocapMsgCB(lightweight_vicon_bridge::MocapState msg)
                 /* Get the full segment name */
                 const std::string full_segment_name = mocap_name + "_" + current_object.name + "_" + current_segment.name;
                 /* Convert to a TF transform and publish */
-                tf::Transform current_tf;
-                current_tf.setOrigin(tf::Vector3(current_segment.transform.translation.x, current_segment.transform.translation.y, current_segment.transform.translation.z));
-                current_tf.setRotation(tf::Quaternion(current_segment.transform.rotation.x, current_segment.transform.rotation.y, current_segment.transform.rotation.z, current_segment.transform.rotation.w));
+                geometry_msgs::TransformStamped current_tf_msg;
+                current_tf_msg.header.stamp = ros::Time::now();
+                current_tf_msg.header.frame_id = msg.header.frame_id;
+                current_tf_msg.child_frame_id = full_segment_name;
+                current_tf_msg.transform.translation.x = current_segment.transform.translation.x;
+                current_tf_msg.transform.translation.y = current_segment.transform.translation.y;
+                current_tf_msg.transform.translation.z = current_segment.transform.translation.z;
+                current_tf_msg.transform.rotation.x = current_segment.transform.rotation.x;
+                current_tf_msg.transform.rotation.y = current_segment.transform.rotation.y;
+                current_tf_msg.transform.rotation.z = current_segment.transform.rotation.z;
+                current_tf_msg.transform.rotation.w = current_segment.transform.rotation.w;
                 /* Publish TF */
                 if (!g_override_timestamps)
                 {
-                    const tf::StampedTransform current_tf_msg(current_tf, msg.header.stamp, msg.header.frame_id, full_segment_name);
+                    current_tf_msg.header.stamp = msg.header.stamp;
                     g_tf_broadcaster->sendTransform(current_tf_msg);
                 }
                 else
                 {
-                    const tf::StampedTransform current_tf_msg(current_tf, ros::Time::now(), msg.header.frame_id, full_segment_name);
                     g_tf_broadcaster->sendTransform(current_tf_msg);
                 }
             }
@@ -69,7 +77,7 @@ int main(int argc, char** argv)
         ROS_INFO("Parameter override_timestamps is set to FALSE - TF publisher will use the timestamps from the mocap system.");
     }
     // Create the TF broadcaster
-    g_tf_broadcaster = std::unique_ptr<tf::TransformBroadcaster>(new tf::TransformBroadcaster());
+    g_tf_broadcaster = std::unique_ptr<tf2_ros::TransformBroadcaster>(new tf2_ros::TransformBroadcaster());
     // Create the mocap data subscriber
     ros::Subscriber mocap_sub = nh.subscribe(tracker_topic, 1, MocapMsgCB);
     // Start streaming data
