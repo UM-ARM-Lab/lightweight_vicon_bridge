@@ -3,6 +3,6 @@
 
     <group ns="static_transform_publishers">
         <node pkg="tf" type="static_transform_publisher" name="val_root_mocap_tf_shim_broadcaster" required="true"
-              args="-0.01 0.000 0.00 -1.46 0.000 -0.100 mocap_val_wood_mount_val_wood_mount base_link 100"/>
+              args="-0.01 0.000 0.00 -1.46 0.000 -0.100 mocap_val_wood_mount_val_wood_mount hdt_michigan_root 100"/>
     </group>
 </launch>
