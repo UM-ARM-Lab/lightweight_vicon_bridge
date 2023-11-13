@@ -29,46 +29,36 @@ include_directories(
 link_directories(${VICON_SDK_LINK_DIR})
 
 find_package(ament_cmake REQUIRED)
-# find_package(rosidl_default_generators REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(mocap_interfaces REQUIRED)
 
+##################
+# build interfaces
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/MocapState.msg"
+  "msg/MocapObject.msg"
+  "msg/MocapSegment.msg"
+  "msg/MocapMarker.msg"
+  "msg/MocapMarkerArray.msg"
+  DEPENDENCIES geometry_msgs std_msgs # Add packages that above messages depend on, in this case geometry_msgs for Sphere.msg
+)
 
+####################
+########## build src
 
-# set(msg_files
-#   "msg/MocapState.msg"
-#   "msg/MocapObject.msg"
-#   "msg/MocapSegment.msg"
-#   "msg/MocapMarker.msg"
-#   "msg/MocapMarkerArray.msg"
-# )
-# rosidl_generate_interfaces(${PROJECT_NAME}
-#   ${msg_files}
-#   DEPENDENCIES geometry_msgs std_msgs# Add 
-# )
+add_executable(lightweight_vicon_bridge_node src/lightweight_vicon_bridge_node.cpp)
+ament_target_dependencies(lightweight_vicon_bridge_node rclcpp std_msgs geometry_msgs)
 
-# find dependencies
+rosidl_get_typesupport_target(cpp_typesupport_target
+  ${PROJECT_NAME} rosidl_typesupport_cpp)
 
-
- 
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
-
-
-add_executable(vicon_bridge src/lightweight_vicon_bridge_node.cpp)
-ament_target_dependencies(vicon_bridge rclcpp std_msgs geometry_msgs mocap_interfaces)
-
-
+target_link_libraries(lightweight_vicon_bridge_node "${cpp_typesupport_target}")
 
 install(TARGETS
-
-  vicon_bridge
+  lightweight_vicon_bridge_node
   DESTINATION lib/${PROJECT_NAME})
-  
-  
   
 
 if(BUILD_TESTING)
@@ -83,4 +73,5 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+ament_export_dependencies(rosidl_default_runtime)
 ament_package()
