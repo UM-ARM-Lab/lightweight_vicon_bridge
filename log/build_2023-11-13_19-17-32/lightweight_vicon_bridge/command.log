@@ -1,2 +1,0 @@
-Invoking command in '/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/build/lightweight_vicon_bridge': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/build/lightweight_vicon_bridge -- -j16 -l16
-Invoked command in '/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/build/lightweight_vicon_bridge' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/build/lightweight_vicon_bridge -- -j16 -l16

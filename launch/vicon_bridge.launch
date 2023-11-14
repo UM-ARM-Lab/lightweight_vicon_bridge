@@ -17,7 +17,7 @@
 
     <node pkg="lightweight_vicon_bridge" exec="lightweight_vicon_bridge_node" name="lightweight_vicon_bridge" output="$(var output)">
         <param name="tracker_hostname" value="$(var tracker_hostname)"/>
-<!--         <param name="tracker_port" value="'$(var tracker_port)'"/> -->
+        <param name="tracker_port" value="$(var tracker_port)"/>
         <param name="tracker_frame_name" value="$(var tracker_origin_frame_name)"/>
         <param name="tracker_name"  value="$(var tracker_name)"/>
         <param name="tracker_topic"  value="$(var object_tracker_topic)"/>

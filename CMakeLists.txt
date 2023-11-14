@@ -27,7 +27,7 @@ include_directories(
   # vicon_sdk/x64             # For StreamCommon, required by ViconSDK  
 )
 
-link_directories(${VICON_SDK_LINK_DIR} ViconDataStreamSDK_CPP)
+link_directories(${VICON_SDK_LINK_DIR})
 
 find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
@@ -66,6 +66,8 @@ rosidl_get_typesupport_target(cpp_typesupport_target
 target_link_libraries(lightweight_vicon_bridge_node ViconDataStreamSDK_CPP "${cpp_typesupport_target}" ${Boost_LIBRARIES})
 
 target_link_libraries(tf_publisher_node ViconDataStreamSDK_CPP "${cpp_typesupport_target}" ${Boost_LIBRARIES})
+
+set_target_properties(lightweight_vicon_bridge_node PROPERTIES INSTALL_RPATH "$ORIGIN;${VICON_SDK_LINK_DIR}")
 
 install(TARGETS
   lightweight_vicon_bridge_node
