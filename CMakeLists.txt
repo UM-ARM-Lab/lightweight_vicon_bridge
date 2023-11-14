@@ -22,12 +22,12 @@ endif(CMAKE_SIZEOF_VOID_P MATCHES "8")
 include_directories(
   include
   ${VICON_SDK_INCLUDE_DIR}
-  # ${Boost_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
   # vicon_sdk/x86  
   # vicon_sdk/x64             # For StreamCommon, required by ViconSDK  
 )
 
-link_directories(${VICON_SDK_LINK_DIR})
+link_directories(${VICON_SDK_LINK_DIR} ViconDataStreamSDK_CPP)
 
 find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)

@@ -46,7 +46,7 @@ int main(int argc, char** argv)
     // nhp.param(std::string("use_sim_time"), use_sim_time, false);
 
     std::string tracker_hostname = node->declare_parameter<std::string>("tracker_hostname", "10.10.10.5");
-    std::string tracker_port = node->declare_parameter<std::string>("tracker_port", "801");
+    std::string tracker_port =  node->declare_parameter<std::string>("tracker_port", "801");
     std::string tracker_frame_name = node->declare_parameter<std::string>("tracker_frame_name", "mocap_world");
     std::string tracker_name = node->declare_parameter<std::string>("tracker_name", "mocap");
     std::string tracker_topic = node->declare_parameter<std::string>("tracker_topic", "mocap_tracking");
