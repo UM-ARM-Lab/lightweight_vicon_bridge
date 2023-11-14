@@ -1,0 +1,35 @@
+[35m[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge__rosidl_generator_c[0m
+[  1%] Built target lightweight_vicon_bridge__cpp
+[ 12%] Built target lightweight_vicon_bridge__rosidl_generator_c
+[ 12%] Built target ament_cmake_python_copy_lightweight_vicon_bridge
+[35m[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge__rosidl_typesupport_cpp[0m
+[35m[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge__rosidl_typesupport_introspection_cpp[0m
+[35m[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge__rosidl_typesupport_fastrtps_cpp[0m
+[35m[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge__rosidl_typesupport_c[0m
+[35m[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge__rosidl_typesupport_introspection_c[0m
+[35m[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge__rosidl_typesupport_fastrtps_c[0m
+[ 43%] Built target lightweight_vicon_bridge__rosidl_typesupport_introspection_cpp
+[ 43%] Built target lightweight_vicon_bridge__rosidl_typesupport_cpp
+[ 44%] Built target lightweight_vicon_bridge__rosidl_typesupport_c
+[ 55%] Built target lightweight_vicon_bridge__rosidl_typesupport_introspection_c
+[ 66%] Built target lightweight_vicon_bridge__rosidl_typesupport_fastrtps_cpp
+[ 76%] Built target lightweight_vicon_bridge__rosidl_typesupport_fastrtps_c
+[35m[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge_node[0m
+[ 76%] Built target lightweight_vicon_bridge
+[ 78%] [32mBuilding CXX object CMakeFiles/lightweight_vicon_bridge_node.dir/src/lightweight_vicon_bridge_node.cpp.o[0m
+[ 80%] Built target lightweight_vicon_bridge__py
+[35m[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge__rosidl_generator_py[0m
+[ 89%] Built target lightweight_vicon_bridge__rosidl_generator_py
+[35m[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge__rosidl_typesupport_fastrtps_c__pyext[0m
+[35m[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge__rosidl_typesupport_c__pyext[0m
+[35m[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge__rosidl_typesupport_introspection_c__pyext[0m
+[ 92%] Built target lightweight_vicon_bridge__rosidl_typesupport_fastrtps_c__pyext
+[ 95%] Built target lightweight_vicon_bridge__rosidl_typesupport_c__pyext
+[ 98%] Built target lightweight_vicon_bridge__rosidl_typesupport_introspection_c__pyext
+running egg_info
+writing lightweight_vicon_bridge.egg-info/PKG-INFO
+writing dependency_links to lightweight_vicon_bridge.egg-info/dependency_links.txt
+writing top-level names to lightweight_vicon_bridge.egg-info/top_level.txt
+reading manifest file 'lightweight_vicon_bridge.egg-info/SOURCES.txt'
+writing manifest file 'lightweight_vicon_bridge.egg-info/SOURCES.txt'
+[ 98%] Built target ament_cmake_python_build_lightweight_vicon_bridge_egg

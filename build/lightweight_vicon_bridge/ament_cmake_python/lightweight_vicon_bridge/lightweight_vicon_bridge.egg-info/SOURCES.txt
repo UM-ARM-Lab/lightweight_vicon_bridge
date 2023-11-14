@@ -1,0 +1,12 @@
+setup.py
+lightweight_vicon_bridge/__init__.py
+lightweight_vicon_bridge.egg-info/PKG-INFO
+lightweight_vicon_bridge.egg-info/SOURCES.txt
+lightweight_vicon_bridge.egg-info/dependency_links.txt
+lightweight_vicon_bridge.egg-info/top_level.txt
+lightweight_vicon_bridge/msg/__init__.py
+lightweight_vicon_bridge/msg/_mocap_marker.py
+lightweight_vicon_bridge/msg/_mocap_marker_array.py
+lightweight_vicon_bridge/msg/_mocap_object.py
+lightweight_vicon_bridge/msg/_mocap_segment.py
+lightweight_vicon_bridge/msg/_mocap_state.py

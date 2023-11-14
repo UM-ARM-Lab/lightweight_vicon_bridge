@@ -1,0 +1,10 @@
+msg/MocapMarker.idl
+msg/MocapMarker.msg
+msg/MocapMarkerArray.idl
+msg/MocapMarkerArray.msg
+msg/MocapObject.idl
+msg/MocapObject.msg
+msg/MocapSegment.idl
+msg/MocapSegment.msg
+msg/MocapState.idl
+msg/MocapState.msg
