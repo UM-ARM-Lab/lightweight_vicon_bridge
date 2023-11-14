@@ -22,6 +22,7 @@ endif(CMAKE_SIZEOF_VOID_P MATCHES "8")
 include_directories(
   include
   ${VICON_SDK_INCLUDE_DIR}
+  ${Boost_INCLUDE_DIRS}
   # vicon_sdk/x86  
   # vicon_sdk/x64             # For StreamCommon, required by ViconSDK  
 )
@@ -49,7 +50,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 ########## build src
 
 add_executable(lightweight_vicon_bridge_node src/lightweight_vicon_bridge_node.cpp)
-ament_target_dependencies(lightweight_vicon_bridge_node rclcpp std_msgs geometry_msgs)
+ament_target_dependencies(lightweight_vicon_bridge_node ViconDataStreamSDK_CPP rclcpp std_msgs geometry_msgs)
 
 rosidl_get_typesupport_target(cpp_typesupport_target
   ${PROJECT_NAME} rosidl_typesupport_cpp)

@@ -1,0 +1,114 @@
+[0.000000] (-) TimerEvent: {}
+[0.000102] (lightweight_vicon_bridge) JobQueued: {'identifier': 'lightweight_vicon_bridge', 'dependencies': OrderedDict()}
+[0.000126] (lightweight_vicon_bridge) JobStarted: {'identifier': 'lightweight_vicon_bridge'}
+[0.036361] (lightweight_vicon_bridge) JobProgress: {'identifier': 'lightweight_vicon_bridge', 'progress': 'cmake'}
+[0.036693] (lightweight_vicon_bridge) JobProgress: {'identifier': 'lightweight_vicon_bridge', 'progress': 'build'}
+[0.037079] (lightweight_vicon_bridge) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/build/lightweight_vicon_bridge', '--', '-j16', '-l16'], 'cwd': '/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/build/lightweight_vicon_bridge', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'zixuanh'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/zixuanh/vicon_ws/install/lightweight_vicon_bridge/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/zixuanh'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/zixuanh/vicon_ws'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/terminator.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('MANAGERPID', '1552'), ('SYSTEMD_EXEC_PID', '1737'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('_CE_M', ''), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '2776'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/zixuanh/vicon_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'zixuanh'), ('JOURNAL_STREAM', '8:36480'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'zixuanh'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/zixuanh/software/pycharm-2023.2.3/bin:/home/zixuanh/miniforge3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/armio:@/tmp/.ICE-unix/1704,unix/armio:/tmp/.ICE-unix/1704'), ('INVOCATION_ID', '834e6c9d110e4eebbfc9b7fc8acb9589'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.ZBXQE2'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/zixuanh/vicon_ws/install/lightweight_vicon_bridge:/opt/ros/humble'), ('CONDA_PYTHON_EXE', '/home/zixuanh/miniforge3/bin/python'), ('SHELL', '/bin/bash'), ('TERMINATOR_UUID', 'urn:uuid:dcb0ba6e-f647-4361-b1f1-a80578d2c3b8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/build/lightweight_vicon_bridge'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('CONDA_EXE', '/home/zixuanh/miniforge3/bin/conda'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/zixuanh/vicon_ws/install/lightweight_vicon_bridge/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/zixuanh/vicon_ws/install/lightweight_vicon_bridge:/opt/ros/humble')]), 'shell': False}
+[0.064822] (lightweight_vicon_bridge) StdoutLine: {'line': b'[  1%] Built target lightweight_vicon_bridge__cpp\n'}
+[0.065212] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 12%] Built target lightweight_vicon_bridge__rosidl_generator_c\n'}
+[0.070195] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 12%] Built target ament_cmake_python_copy_lightweight_vicon_bridge\n'}
+[0.076668] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 23%] Built target lightweight_vicon_bridge__rosidl_typesupport_c\n'}
+[0.077087] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 36%] Built target lightweight_vicon_bridge__rosidl_typesupport_cpp\n'}
+[0.077168] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 55%] Built target lightweight_vicon_bridge__rosidl_typesupport_introspection_cpp\n'}
+[0.077229] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 58%] Built target lightweight_vicon_bridge__rosidl_typesupport_fastrtps_cpp\n'}
+[0.077286] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 66%] Built target lightweight_vicon_bridge__rosidl_typesupport_fastrtps_c\n'}
+[0.077684] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 76%] Built target lightweight_vicon_bridge__rosidl_typesupport_introspection_c\n'}
+[0.083438] (lightweight_vicon_bridge) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target lightweight_vicon_bridge_node\x1b[0m\n'}
+[0.088551] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 76%] Built target lightweight_vicon_bridge\n'}
+[0.092913] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 78%] \x1b[32mBuilding CXX object CMakeFiles/lightweight_vicon_bridge_node.dir/src/lightweight_vicon_bridge_node.cpp.o\x1b[0m\n'}
+[0.099417] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 80%] Built target lightweight_vicon_bridge__py\n'}
+[0.099522] (-) TimerEvent: {}
+[0.113308] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 89%] Built target lightweight_vicon_bridge__rosidl_generator_py\n'}
+[0.132068] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 95%] Built target lightweight_vicon_bridge__rosidl_typesupport_introspection_c__pyext\n'}
+[0.132189] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 95%] Built target lightweight_vicon_bridge__rosidl_typesupport_fastrtps_c__pyext\n'}
+[0.132253] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 98%] Built target lightweight_vicon_bridge__rosidl_typesupport_c__pyext\n'}
+[0.199634] (-) TimerEvent: {}
+[0.216345] (lightweight_vicon_bridge) StdoutLine: {'line': b'running egg_info\n'}
+[0.216707] (lightweight_vicon_bridge) StdoutLine: {'line': b'writing lightweight_vicon_bridge.egg-info/PKG-INFO\n'}
+[0.216915] (lightweight_vicon_bridge) StdoutLine: {'line': b'writing dependency_links to lightweight_vicon_bridge.egg-info/dependency_links.txt\n'}
+[0.216973] (lightweight_vicon_bridge) StdoutLine: {'line': b'writing top-level names to lightweight_vicon_bridge.egg-info/top_level.txt\n'}
+[0.217991] (lightweight_vicon_bridge) StdoutLine: {'line': b"reading manifest file 'lightweight_vicon_bridge.egg-info/SOURCES.txt'\n"}
+[0.218429] (lightweight_vicon_bridge) StdoutLine: {'line': b"writing manifest file 'lightweight_vicon_bridge.egg-info/SOURCES.txt'\n"}
+[0.240187] (lightweight_vicon_bridge) StdoutLine: {'line': b'[ 98%] Built target ament_cmake_python_build_lightweight_vicon_bridge_egg\n'}
+[0.299758] (-) TimerEvent: {}
+[0.400003] (-) TimerEvent: {}
+[0.500381] (-) TimerEvent: {}
+[0.600687] (-) TimerEvent: {}
+[0.700949] (-) TimerEvent: {}
+[0.801198] (-) TimerEvent: {}
+[0.901458] (-) TimerEvent: {}
+[1.001684] (-) TimerEvent: {}
+[1.101934] (-) TimerEvent: {}
+[1.202165] (-) TimerEvent: {}
+[1.302399] (-) TimerEvent: {}
+[1.402661] (-) TimerEvent: {}
+[1.416192] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/src/lightweight_vicon_bridge_node.cpp:\x1b[m\x1b[K In function \xe2\x80\x98\x1b[01m\x1b[Kint main(int, char**)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[1.416308] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/src/lightweight_vicon_bridge_node.cpp:90:117:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kclass template argument deduction failed:\n'}
+[1.416347] (lightweight_vicon_bridge) StderrLine: {'line': b'   90 | ocap_pub = node->create_publisher<lightweight_vicon_bridge::msg::MocapState>(tracker_topic, 1\x1b[01;31m\x1b[K)\x1b[m\x1b[K;\n'}
+[1.416380] (lightweight_vicon_bridge) StderrLine: {'line': b'      |                                                                                              \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[1.416412] (lightweight_vicon_bridge) StderrLine: {'line': b'\n'}
+[1.416443] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/src/lightweight_vicon_bridge_node.cpp:90:117:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kno matching function for call to \xe2\x80\x98\x1b[01m\x1b[KPublisher(std::shared_ptr<rclcpp::Publisher<lightweight_vicon_bridge::msg::MocapState_<std::allocator<void> >, std::allocator<void> > >)\x1b[m\x1b[K\xe2\x80\x99\n'}
+[1.416477] (lightweight_vicon_bridge) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/topic_statistics/subscription_topic_statistics.hpp:31\x1b[m\x1b[K,\n'}
+[1.416509] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:50\x1b[m\x1b[K,\n'}
+[1.416540] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:25\x1b[m\x1b[K,\n'}
+[1.416570] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25\x1b[m\x1b[K,\n'}
+[1.416601] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18\x1b[m\x1b[K,\n'}
+[1.416632] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20\x1b[m\x1b[K,\n'}
+[1.416662] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37\x1b[m\x1b[K,\n'}
+[1.416691] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25\x1b[m\x1b[K,\n'}
+[1.416720] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21\x1b[m\x1b[K,\n'}
+[1.416758] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155\x1b[m\x1b[K,\n'}
+[1.416789] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/src/lightweight_vicon_bridge_node.cpp:10\x1b[m\x1b[K:\n'}
+[1.416819] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:125:3:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[Kcandidate: \xe2\x80\x98\x1b[01m\x1b[Ktemplate<class MessageT, class AllocatorT> Publisher(rclcpp::node_interfaces::NodeBaseInterface*, const string&, const rclcpp::QoS&, const rclcpp::PublisherOptionsWithAllocator<AllocatorT>&)-> rclcpp::Publisher<MessageT, AllocatorT>\x1b[m\x1b[K\xe2\x80\x99\n'}
+[1.416854] (lightweight_vicon_bridge) StderrLine: {'line': b'  125 |   \x1b[01;36m\x1b[KPublisher\x1b[m\x1b[K(\n'}
+[1.416885] (lightweight_vicon_bridge) StderrLine: {'line': b'      |   \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.416914] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:125:3:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  template argument deduction/substitution failed:\n'}
+[1.416945] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/src/lightweight_vicon_bridge_node.cpp:90:117:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  candidate expects 4 arguments, 1 provided\n'}
+[1.416976] (lightweight_vicon_bridge) StderrLine: {'line': b'   90 | ocap_pub = node->create_publisher<lightweight_vicon_bridge::msg::MocapState>(tracker_topic, 1\x1b[01;36m\x1b[K)\x1b[m\x1b[K;\n'}
+[1.417006] (lightweight_vicon_bridge) StderrLine: {'line': b'      |                                                                                              \x1b[01;36m\x1b[K^\x1b[m\x1b[K\n'}
+[1.417037] (lightweight_vicon_bridge) StderrLine: {'line': b'\n'}
+[1.417066] (lightweight_vicon_bridge) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/topic_statistics/subscription_topic_statistics.hpp:31\x1b[m\x1b[K,\n'}
+[1.417097] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/subscription.hpp:50\x1b[m\x1b[K,\n'}
+[1.417128] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/any_executable.hpp:25\x1b[m\x1b[K,\n'}
+[1.417164] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategy.hpp:25\x1b[m\x1b[K,\n'}
+[1.417201] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/memory_strategies.hpp:18\x1b[m\x1b[K,\n'}
+[1.417236] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executor_options.hpp:20\x1b[m\x1b[K,\n'}
+[1.417271] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executor.hpp:37\x1b[m\x1b[K,\n'}
+[1.417346] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executors/multi_threaded_executor.hpp:25\x1b[m\x1b[K,\n'}
+[1.417384] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/executors.hpp:21\x1b[m\x1b[K,\n'}
+[1.417415] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:155\x1b[m\x1b[K,\n'}
+[1.417445] (lightweight_vicon_bridge) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/src/lightweight_vicon_bridge_node.cpp:10\x1b[m\x1b[K:\n'}
+[1.417479] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:77:7:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[Kcandidate: \xe2\x80\x98\x1b[01m\x1b[Ktemplate<class MessageT, class AllocatorT> Publisher(rclcpp::Publisher<MessageT, AllocatorT>)-> rclcpp::Publisher<MessageT, AllocatorT>\x1b[m\x1b[K\xe2\x80\x99\n'}
+[1.417514] (lightweight_vicon_bridge) StderrLine: {'line': b'   77 | class \x1b[01;36m\x1b[KPublisher\x1b[m\x1b[K : public PublisherBase\n'}
+[1.417545] (lightweight_vicon_bridge) StderrLine: {'line': b'      |       \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.417575] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/rclcpp/rclcpp/publisher.hpp:77:7:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  template argument deduction/substitution failed:\n'}
+[1.417605] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/src/lightweight_vicon_bridge_node.cpp:90:117:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  \xe2\x80\x98\x1b[01m\x1b[Kstd::shared_ptr<rclcpp::Publisher<lightweight_vicon_bridge::msg::MocapState_<std::allocator<void> >, std::allocator<void> > >\x1b[m\x1b[K\xe2\x80\x99 is not derived from \xe2\x80\x98\x1b[01m\x1b[Krclcpp::Publisher<MessageT, AllocatorT>\x1b[m\x1b[K\xe2\x80\x99\n'}
+[1.417637] (lightweight_vicon_bridge) StderrLine: {'line': b'   90 | ocap_pub = node->create_publisher<lightweight_vicon_bridge::msg::MocapState>(tracker_topic, 1\x1b[01;36m\x1b[K)\x1b[m\x1b[K;\n'}
+[1.417666] (lightweight_vicon_bridge) StderrLine: {'line': b'      |                                                                                              \x1b[01;36m\x1b[K^\x1b[m\x1b[K\n'}
+[1.417696] (lightweight_vicon_bridge) StderrLine: {'line': b'\n'}
+[1.417724] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/src/lightweight_vicon_bridge_node.cpp:133:55:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kconversion from \xe2\x80\x98\x1b[01m\x1b[Kconst double\x1b[m\x1b[K\xe2\x80\x99 to non-scalar type \xe2\x80\x98\x1b[01m\x1b[Kconst rclcpp::Duration\x1b[m\x1b[K\xe2\x80\x99 requested\n'}
+[1.417756] (lightweight_vicon_bridge) StderrLine: {'line': b'  133 |             const rclcpp::Duration latency_duration = \x1b[01;31m\x1b[Ktotal_latency\x1b[m\x1b[K;\n'}
+[1.417788] (lightweight_vicon_bridge) StderrLine: {'line': b'      |                                                       \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[1.417818] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/src/lightweight_vicon_bridge_node.cpp:134:61:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Know\x1b[m\x1b[K\xe2\x80\x99 is not a member of \xe2\x80\x98\x1b[01m\x1b[Krclcpp::Time\x1b[m\x1b[K\xe2\x80\x99\n'}
+[1.417852] (lightweight_vicon_bridge) StderrLine: {'line': b'  134 |             const rclcpp::Time current_time = rclcpp::Time::\x1b[01;31m\x1b[Know\x1b[m\x1b[K();\n'}
+[1.417882] (lightweight_vicon_bridge) StderrLine: {'line': b'      |                                                             \x1b[01;31m\x1b[K^~~\x1b[m\x1b[K\n'}
+[1.417912] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/src/lightweight_vicon_bridge_node.cpp:136:30:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kconst class rclcpp::Time\x1b[m\x1b[K\xe2\x80\x99 has no member named \xe2\x80\x98\x1b[01m\x1b[KtoSec\x1b[m\x1b[K\xe2\x80\x99\n'}
+[1.417943] (lightweight_vicon_bridge) StderrLine: {'line': b'  136 |             if (current_time.\x1b[01;31m\x1b[KtoSec\x1b[m\x1b[K() > latency_duration.toSec())\n'}
+[1.417978] (lightweight_vicon_bridge) StderrLine: {'line': b'      |                              \x1b[01;31m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[1.418041] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/src/lightweight_vicon_bridge_node.cpp:136:57:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kconst class rclcpp::Duration\x1b[m\x1b[K\xe2\x80\x99 has no member named \xe2\x80\x98\x1b[01m\x1b[KtoSec\x1b[m\x1b[K\xe2\x80\x99\n'}
+[1.418076] (lightweight_vicon_bridge) StderrLine: {'line': b'  136 |             if (current_time.toSec() > latency_duration.\x1b[01;31m\x1b[KtoSec\x1b[m\x1b[K())\n'}
+[1.418106] (lightweight_vicon_bridge) StderrLine: {'line': b'      |                                                         \x1b[01;31m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[1.418136] (lightweight_vicon_bridge) StderrLine: {'line': b'\x1b[01m\x1b[K/home/zixuanh/vicon_ws/src/lightweight_vicon_bridge/src/lightweight_vicon_bridge_node.cpp:186:43:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kusing _tracked_objects_type = struct lightweight_vicon_bridge::msg::MocapObject_<std::allocator<void> >\x1b[m\x1b[K\xe2\x80\x99 {aka \xe2\x80\x98\x1b[01m\x1b[Kstruct lightweight_vicon_bridge::msg::MocapObject_<std::allocator<void> >\x1b[m\x1b[K\xe2\x80\x99} has no member named \xe2\x80\x98\x1b[01m\x1b[Kpush_back\x1b[m\x1b[K\xe2\x80\x99\n'}
+[1.418172] (lightweight_vicon_bridge) StderrLine: {'line': b'  186 |                 state_msg.tracked_objects.\x1b[01;31m\x1b[Kpush_back\x1b[m\x1b[K(object_msg);\n'}
+[1.418206] (lightweight_vicon_bridge) StderrLine: {'line': b'      |                                           \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.502785] (-) TimerEvent: {}
+[1.603031] (-) TimerEvent: {}
+[1.703257] (-) TimerEvent: {}
+[1.803503] (-) TimerEvent: {}
+[1.827716] (lightweight_vicon_bridge) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/lightweight_vicon_bridge_node.dir/build.make:76: CMakeFiles/lightweight_vicon_bridge_node.dir/src/lightweight_vicon_bridge_node.cpp.o] Error 1\n'}
+[1.827840] (lightweight_vicon_bridge) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:593: CMakeFiles/lightweight_vicon_bridge_node.dir/all] Error 2\n'}
+[1.827960] (lightweight_vicon_bridge) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[1.829064] (lightweight_vicon_bridge) CommandEnded: {'returncode': 2}
+[1.903567] (-) TimerEvent: {}
+[1.923406] (lightweight_vicon_bridge) JobEnded: {'identifier': 'lightweight_vicon_bridge', 'rc': 2}
+[1.934322] (-) EventReactorShutdown: {}

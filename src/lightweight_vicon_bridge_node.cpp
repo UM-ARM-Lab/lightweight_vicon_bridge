@@ -16,6 +16,7 @@ int main(int argc, char** argv)
 {
     // rclcpp::init(argc, argv, "lightweight_vicon_bridge");
     rclcpp::init(argc, argv);
+    lightweight_vicon_bridge::msg::MocapState sss;
 
     // Create a Node
     // rclcpp::NodeHandle nh;
@@ -87,7 +88,7 @@ int main(int argc, char** argv)
     RCLCPP_INFO(node->get_logger(), "Connecting to Vicon Tracker (DataStream SDK) at hostname %s", tracker_hostname.c_str());
     // Make the ROS publisher
 //    rclcpp::Publisher mocap_pub = nh.advertise<lightweight_vicon_bridge::MocapState>(tracker_topic, 1, false);
-    rclcpp::Publisher mocap_pub = node->create_publisher<lightweight_vicon_bridge::msg::MocapState>(tracker_topic, 1);
+    rclcpp::Publisher<lightweight_vicon_bridge::msg::MocapState>::SharedPtr mocap_pub = node->create_publisher<lightweight_vicon_bridge::msg::MocapState>(tracker_topic, 1);
     // Initialize the DataStream SDK
     ViconDataStreamSDK::CPP::Client sdk_client;
     RCLCPP_INFO(node->get_logger(), "Connecting to server...");
@@ -130,10 +131,10 @@ int main(int argc, char** argv)
         if (sdk_client.GetFrame().Result == ViconDataStreamSDK::CPP::Result::Success)
         {
             const double total_latency = sdk_client.GetLatencyTotal().Total;
-            const rclcpp::Duration latency_duration(total_latency);
-            const rclcpp::Time current_time = rclcpp::Time::now();
+            const rclcpp::Duration latency_duration = rclcpp::Duration::from_seconds(total_latency);
+            const rclcpp::Time current_time = node->now();
             rclcpp::Time raw_frame_time(0.0);
-            if (current_time.toSec() > latency_duration.toSec())
+            if (current_time.seconds() > latency_duration.seconds())
             {
                 raw_frame_time = current_time - latency_duration;
             }
@@ -186,7 +187,7 @@ int main(int argc, char** argv)
                 state_msg.tracked_objects.push_back(object_msg);
             }
             // Finish the message and publish
-            mocap_pub.publish(state_msg);
+            mocap_pub->publish(state_msg);
         }
         // Handle ROS stuff
         rclcpp::spin_some(node);
