@@ -22,7 +22,7 @@ endif(CMAKE_SIZEOF_VOID_P MATCHES "8")
 include_directories(
   include
   ${VICON_SDK_INCLUDE_DIR}
-  ${Boost_INCLUDE_DIRS}
+  # ${Boost_INCLUDE_DIRS}
   # vicon_sdk/x86  
   # vicon_sdk/x64             # For StreamCommon, required by ViconSDK  
 )
@@ -50,12 +50,12 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 ########## build src
 
 add_executable(lightweight_vicon_bridge_node src/lightweight_vicon_bridge_node.cpp)
-ament_target_dependencies(lightweight_vicon_bridge_node ViconDataStreamSDK_CPP rclcpp std_msgs geometry_msgs)
+ament_target_dependencies(lightweight_vicon_bridge_node rclcpp std_msgs geometry_msgs)
 
 rosidl_get_typesupport_target(cpp_typesupport_target
   ${PROJECT_NAME} rosidl_typesupport_cpp)
 
-target_link_libraries(lightweight_vicon_bridge_node "${cpp_typesupport_target}")
+target_link_libraries(lightweight_vicon_bridge_node ViconDataStreamSDK_CPP "${cpp_typesupport_target}" ${Boost_LIBRARIES})
 
 install(TARGETS
   lightweight_vicon_bridge_node
@@ -75,4 +75,8 @@ if(BUILD_TESTING)
 endif()
 
 ament_export_dependencies(rosidl_default_runtime)
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
+)
 ament_package()
