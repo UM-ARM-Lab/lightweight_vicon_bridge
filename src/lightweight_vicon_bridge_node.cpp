@@ -16,7 +16,7 @@ int main(int argc, char** argv)
 {
     // rclcpp::init(argc, argv, "lightweight_vicon_bridge");
     rclcpp::init(argc, argv);
-    lightweight_vicon_bridge::msg::MocapState sss;
+    // lightweight_vicon_bridge::msg::MocapState sss;
 
     // Create a Node
     // rclcpp::NodeHandle nh;
@@ -36,7 +36,7 @@ int main(int argc, char** argv)
     // std::string tracker_name;
     // std::string tracker_topic;
     // std::string stream_mode;
-     bool use_sim_time = false;
+    //  bool use_sim_time = false;
     // nhp.param(std::string("tracker_hostname"), tracker_hostname, std::string("192.168.2.161"));
     // nhp.param(std::string("tracker_port"), tracker_port, std::string("801"));
     // nhp.param(std::string("tracker_frame_name"), tracker_frame_name, std::string("mocap_world"));
@@ -51,7 +51,7 @@ int main(int argc, char** argv)
     std::string tracker_name = node->declare_parameter<std::string>("tracker_name", "mocap");
     std::string tracker_topic = node->declare_parameter<std::string>("tracker_topic", "mocap_tracking");
     std::string stream_mode = node->declare_parameter<std::string>("stream_mode", "ServerPush");
-//    use_sim_time = node->declare_parameter<bool>("use_sim_time", false);
+    bool use_sim_time = node->declare_parameter<bool>("test_use_sim_time", false);
 
 
     if (use_sim_time)

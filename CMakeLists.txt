@@ -34,6 +34,9 @@ find_package(rosidl_default_generators REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
+
 
 ##################
 # build interfaces
@@ -52,13 +55,21 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 add_executable(lightweight_vicon_bridge_node src/lightweight_vicon_bridge_node.cpp)
 ament_target_dependencies(lightweight_vicon_bridge_node rclcpp std_msgs geometry_msgs)
 
+
+add_executable(tf_publisher_node src/tf_publisher_node.cpp)
+ament_target_dependencies(tf_publisher_node rclcpp std_msgs geometry_msgs tf2 tf2_ros)
+
+
 rosidl_get_typesupport_target(cpp_typesupport_target
   ${PROJECT_NAME} rosidl_typesupport_cpp)
 
 target_link_libraries(lightweight_vicon_bridge_node ViconDataStreamSDK_CPP "${cpp_typesupport_target}" ${Boost_LIBRARIES})
 
+target_link_libraries(tf_publisher_node ViconDataStreamSDK_CPP "${cpp_typesupport_target}" ${Boost_LIBRARIES})
+
 install(TARGETS
   lightweight_vicon_bridge_node
+  tf_publisher_node
   DESTINATION lib/${PROJECT_NAME})
   
 
