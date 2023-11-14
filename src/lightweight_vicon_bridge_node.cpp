@@ -51,7 +51,8 @@ int main(int argc, char** argv)
     std::string tracker_name = node->declare_parameter<std::string>("tracker_name", "mocap");
     std::string tracker_topic = node->declare_parameter<std::string>("tracker_topic", "mocap_tracking");
     std::string stream_mode = node->declare_parameter<std::string>("stream_mode", "ServerPush");
-    bool use_sim_time = node->declare_parameter<bool>("test_use_sim_time", false);
+//    bool use_sim_time = node->declare_parameter<bool>("use_sim_time", false);
+    bool use_sim_time = node->get_parameter("use_sim_time").as_bool();
 
 
     if (use_sim_time)
