@@ -1,93 +1,37 @@
-// #include <ros/ros.h>
-// #include <iostream>
-// #include <string>
-// #include <lightweight_vicon_bridge/MocapState.h>
-// #include <Client.h>
-
+#include "rclcpp/rclcpp.hpp"
 #include <iostream>
 #include <string>
-#include <Client.h>
-#include "rclcpp/rclcpp.hpp"
 #include "lightweight_vicon_bridge/msg/mocap_state.hpp"
- 
-
- 
- 
+#include <Client.h>
 
 int main(int argc, char** argv)
 {
-    // rclcpp::init(argc, argv, "lightweight_vicon_bridge");
     rclcpp::init(argc, argv);
-    // lightweight_vicon_bridge::msg::MocapState sss;
-
-    // Create a Node
-    // rclcpp::NodeHandle nh;
-    // rclcpp::NodeHandle nhp("~");
-    
-    auto node = rclcpp::Node::make_shared("lightweight_vicon_bridge6555");
-
-    // RCLCPP_INFO("Starting lightweight vicon bridge...");
     RCLCPP_INFO(node->get_logger(), "Starting lightweight vicon bridge...");
+    auto node = rclcpp::Node::make_shared("lightweight_vicon_bridge");
 
-    // RCLCPP_INFO(rclcpp::get_logger(),"Starting lightweight vicon bridge...");
- 
-    // RCLCPP_INFO("Loading parameters...");
-    // RCLCPP_INFO(rclcpp::get_logger(), "Loading parameters...");
-
-
-    // Get parameters with default values
-    // std::string tracker_hostname;
-    // std::string tracker_port;
-    // std::string tracker_frame_name;
-    // std::string tracker_name;
-    // std::string tracker_topic;
-    // std::string stream_mode;
-    //  bool use_sim_time = false;
-    // nhp.param(std::string("tracker_hostname"), tracker_hostname, std::string("192.168.2.161"));
-    // nhp.param(std::string("tracker_port"), tracker_port, std::string("801"));
-    // nhp.param(std::string("tracker_frame_name"), tracker_frame_name, std::string("mocap_world"));
-    // nhp.param(std::string("tracker_name"), tracker_name, std::string("mocap"));
-    // nhp.param(std::string("tracker_topic"), tracker_topic, std::string("mocap_tracking"));
-    // nhp.param(std::string("stream_mode"), stream_mode, std::string("ServerPush"));
-    // nhp.param(std::string("use_sim_time"), use_sim_time, false);
-
+    RCLCPP_INFO(node->get_logger(), "Loading parameters...");
     std::string tracker_hostname = node->declare_parameter<std::string>("tracker_hostname", "10.10.10.5");
-    // std::string tracker_port =  std::to_string(node->declare_parameter<std::int>("tracker_port", 801));
-
-    // std::string tracker_port =  node->declare_parameter<std::string>("tracker_port", "801");
     int tracker_port =  node->declare_parameter<int>("tracker_port", 801);
 
     std::string tracker_frame_name = node->declare_parameter<std::string>("tracker_frame_name", "mocap_world");
     std::string tracker_name = node->declare_parameter<std::string>("tracker_name", "mocap");
     std::string tracker_topic = node->declare_parameter<std::string>("tracker_topic", "mocap_tracking");
     std::string stream_mode = node->declare_parameter<std::string>("stream_mode", "ServerPush");
-//    bool use_sim_time = node->declare_parameter<bool>("use_sim_time", false);
     bool use_sim_time = node->get_parameter("use_sim_time").as_bool();
-
-
     if (use_sim_time)
     {
-        // RCLCPP_INFO("Parameter use_sim_time set, waiting until we have valid timing data");
         RCLCPP_INFO(node->get_logger(), "Parameter use_sim_time set, waiting until we have valid timing data");
-
         // Handle the sim time issue
-        // while (rclcpp::Time::now().toSec() <= 0.02)
-        // {
-        //     rclcpp::spinOnce();
-        // }
         while (node->now().seconds() <= 0.02)
         {
            rclcpp::spin_some(node);
         }
     }
-
-
     // Check the stream mode
     if (stream_mode == std::string("ServerPush") || stream_mode == std::string("ClientPullPreFetch") || stream_mode == std::string("ClientPull"))
     {
-        // RCLCPP_INFO("Starting in %s mode", stream_mode.c_str());
         RCLCPP_INFO(node->get_logger(), "Starting in %s mode", stream_mode.c_str());
-
     }
     else
     {
@@ -98,8 +42,8 @@ int main(int argc, char** argv)
     tracker_hostname = tracker_hostname + ":" + std::to_string(tracker_port);
     RCLCPP_INFO(node->get_logger(), "Connecting to Vicon Tracker (DataStream SDK) at hostname %s", tracker_hostname.c_str());
     // Make the ROS publisher
-//    rclcpp::Publisher mocap_pub = nh.advertise<lightweight_vicon_bridge::MocapState>(tracker_topic, 1, false);
-    rclcpp::Publisher<lightweight_vicon_bridge::msg::MocapState>::SharedPtr mocap_pub = node->create_publisher<lightweight_vicon_bridge::msg::MocapState>(tracker_topic, 1);
+    rclcpp::Publisher<lightweight_vicon_bridge::msg::MocapState>::SharedPtr mocap_pub;
+    mocap_pub = node->create_publisher<lightweight_vicon_bridge::msg::MocapState>(tracker_topic, 1);
     // Initialize the DataStream SDK
     ViconDataStreamSDK::CPP::Client sdk_client;
     RCLCPP_INFO(node->get_logger(), "Connecting to server...");
