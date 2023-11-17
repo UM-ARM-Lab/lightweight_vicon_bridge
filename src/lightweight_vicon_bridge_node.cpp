@@ -7,13 +7,12 @@
 int main(int argc, char** argv)
 {
     rclcpp::init(argc, argv);
-    RCLCPP_INFO(node->get_logger(), "Starting lightweight vicon bridge...");
     auto node = rclcpp::Node::make_shared("lightweight_vicon_bridge");
+    RCLCPP_INFO(node->get_logger(), "Starting lightweight vicon bridge...");
 
     RCLCPP_INFO(node->get_logger(), "Loading parameters...");
     std::string tracker_hostname = node->declare_parameter<std::string>("tracker_hostname", "10.10.10.5");
-    int tracker_port =  node->declare_parameter<int>("tracker_port", 801);
-
+    std::string tracker_port =  std::to_string(node->declare_parameter<int>("tracker_port", 801));
     std::string tracker_frame_name = node->declare_parameter<std::string>("tracker_frame_name", "mocap_world");
     std::string tracker_name = node->declare_parameter<std::string>("tracker_name", "mocap");
     std::string tracker_topic = node->declare_parameter<std::string>("tracker_topic", "mocap_tracking");
@@ -39,7 +38,7 @@ int main(int argc, char** argv)
         exit(-1);
     }
     // Assemble the full hostname
-    tracker_hostname = tracker_hostname + ":" + std::to_string(tracker_port);
+    tracker_hostname = tracker_hostname + ":" + tracker_port;
     RCLCPP_INFO(node->get_logger(), "Connecting to Vicon Tracker (DataStream SDK) at hostname %s", tracker_hostname.c_str());
     // Make the ROS publisher
     rclcpp::Publisher<lightweight_vicon_bridge::msg::MocapState>::SharedPtr mocap_pub;
