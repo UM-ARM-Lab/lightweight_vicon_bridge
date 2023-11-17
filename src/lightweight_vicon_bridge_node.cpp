@@ -9,8 +9,10 @@
 #include <Client.h>
 #include "rclcpp/rclcpp.hpp"
 #include "lightweight_vicon_bridge/msg/mocap_state.hpp"
+ 
 
-
+ 
+ 
 
 int main(int argc, char** argv)
 {
@@ -21,12 +23,16 @@ int main(int argc, char** argv)
     // Create a Node
     // rclcpp::NodeHandle nh;
     // rclcpp::NodeHandle nhp("~");
-    auto node = rclcpp::Node::make_shared("lightweight_vicon_bridge");
+    
+    auto node = rclcpp::Node::make_shared("lightweight_vicon_bridge6555");
 
     // RCLCPP_INFO("Starting lightweight vicon bridge...");
     RCLCPP_INFO(node->get_logger(), "Starting lightweight vicon bridge...");
+
+    // RCLCPP_INFO(rclcpp::get_logger(),"Starting lightweight vicon bridge...");
+ 
     // RCLCPP_INFO("Loading parameters...");
-    RCLCPP_INFO(node->get_logger(), "Loading parameters...");
+    // RCLCPP_INFO(rclcpp::get_logger(), "Loading parameters...");
 
 
     // Get parameters with default values
@@ -46,7 +52,11 @@ int main(int argc, char** argv)
     // nhp.param(std::string("use_sim_time"), use_sim_time, false);
 
     std::string tracker_hostname = node->declare_parameter<std::string>("tracker_hostname", "10.10.10.5");
-    std::string tracker_port =  std::to_string(node->declare_parameter<std::int>("tracker_port", 801));
+    // std::string tracker_port =  std::to_string(node->declare_parameter<std::int>("tracker_port", 801));
+
+    // std::string tracker_port =  node->declare_parameter<std::string>("tracker_port", "801");
+    int tracker_port =  node->declare_parameter<int>("tracker_port", 801);
+
     std::string tracker_frame_name = node->declare_parameter<std::string>("tracker_frame_name", "mocap_world");
     std::string tracker_name = node->declare_parameter<std::string>("tracker_name", "mocap");
     std::string tracker_topic = node->declare_parameter<std::string>("tracker_topic", "mocap_tracking");
@@ -85,7 +95,7 @@ int main(int argc, char** argv)
         exit(-1);
     }
     // Assemble the full hostname
-    tracker_hostname = tracker_hostname + ":" + tracker_port;
+    tracker_hostname = tracker_hostname + ":" + std::to_string(tracker_port);
     RCLCPP_INFO(node->get_logger(), "Connecting to Vicon Tracker (DataStream SDK) at hostname %s", tracker_hostname.c_str());
     // Make the ROS publisher
 //    rclcpp::Publisher mocap_pub = nh.advertise<lightweight_vicon_bridge::MocapState>(tracker_topic, 1, false);
