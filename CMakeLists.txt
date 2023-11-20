@@ -36,6 +36,7 @@ find_package(std_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
+find_package(visualization_msgs)
 
 
 ##################
@@ -59,6 +60,9 @@ ament_target_dependencies(lightweight_vicon_bridge_node rclcpp std_msgs geometry
 add_executable(tf_publisher_node src/tf_publisher_node.cpp)
 ament_target_dependencies(tf_publisher_node rclcpp std_msgs geometry_msgs tf2 tf2_ros)
 
+add_executable(raw_marker_bridge_node src/raw_marker_bridge_node.cpp)
+ament_target_dependencies(raw_marker_bridge_node rclcpp std_msgs geometry_msgs visualization_msgs)
+
 
 rosidl_get_typesupport_target(cpp_typesupport_target
   ${PROJECT_NAME} rosidl_typesupport_cpp)
@@ -67,11 +71,14 @@ target_link_libraries(lightweight_vicon_bridge_node ViconDataStreamSDK_CPP "${cp
 
 target_link_libraries(tf_publisher_node ViconDataStreamSDK_CPP "${cpp_typesupport_target}" ${Boost_LIBRARIES})
 
+target_link_libraries(raw_marker_bridge_node ViconDataStreamSDK_CPP "${cpp_typesupport_target}" ${Boost_LIBRARIES})
+
 set_target_properties(lightweight_vicon_bridge_node PROPERTIES INSTALL_RPATH "$ORIGIN;${VICON_SDK_LINK_DIR}")
 
 install(TARGETS
   lightweight_vicon_bridge_node
   tf_publisher_node
+  raw_marker_bridge_node
   DESTINATION lib/${PROJECT_NAME})
   
 
