@@ -1,17 +1,13 @@
-// #include <ros/ros.h>
+
 #include <iostream>
 #include <string>
 #include <Client.h>
 #include "rclcpp/rclcpp.hpp"
 #include "lightweight_vicon_bridge/msg/mocap_marker_array.hpp"
 #include "lightweight_vicon_bridge/msg/mocap_marker.hpp"
-
-
-// #include <visualization_msgs/Marker.h>
-// #include <visualization_msgs/MarkerArray.h>
 #include <visualization_msgs/msg/marker_array.hpp>
 #include <visualization_msgs/msg/marker.h>
-// #include <lightweight_vicon_bridge/MocapMarkerArray.h>
+
 
 
 visualization_msgs::msg::Marker
@@ -19,37 +15,15 @@ make_marker_viz(const std::string &tracker_frame_name, const rclcpp::Time &frame
                 double y, double z);
 
 int main(int argc, char **argv) {
-    // ros::init(argc, argv, "raw_marker_bridge");
+
     rclcpp::init(argc, argv);
     auto node = rclcpp::Node::make_shared("raw_marker_bridge");
     RCLCPP_INFO(node->get_logger(), "Starting raw marker bridge...");
-
-    // ROS_INFO("Starting raw marker bridge...");
-    // ros::NodeHandle nh;q
-    // ros::NodeHandle nhp("~");
-    // ROS_INFO("Loading parameters...");
     RCLCPP_INFO(node->get_logger(), "Loading parameters...");
-
-    // std::string tracker_hostname;
-    // std::string tracker_port;
-    // std::string tracker_frame_name;
-    // std::string tracker_name;
-    // std::string tracker_topic;
-    // std::string stream_mode;
-    // bool use_sim_time = false;
-    // nhp.param(std::string("tracker_hostname"), tracker_hostname, std::string("192.168.2.161"));
-    // nhp.param(std::string("tracker_port"), tracker_port, std::string("801"));
-    // nhp.param(std::string("tracker_frame_name"), tracker_frame_name, std::string("mocap_world"));
-    // nhp.param(std::string("tracker_name"), tracker_name, std::string("mocap"));
-    // nhp.param(std::string("tracker_topic"), tracker_topic, std::string("mocap_markers"));
-    // nhp.param(std::string("stream_mode"), stream_mode, std::string("ServerPush"));
-    // nhp.param(std::string("use_sim_time"), use_sim_time, false); 
+    
     std::string viz_topic = "mocap_markers_viz";
-
     std::string tracker_hostname = node->declare_parameter<std::string>("tracker_hostname", "10.10.10.5");
-
     int tracker_port =  node->declare_parameter<int>("tracker_port", 801);
-
     std::string tracker_frame_name = node->declare_parameter<std::string>("tracker_frame_name", "mocap_world");
     std::string tracker_name = node->declare_parameter<std::string>("tracker_name", "mocap");
     std::string tracker_topic = node->declare_parameter<std::string>("tracker_topic", "mocap_tracking");
@@ -69,7 +43,6 @@ int main(int argc, char **argv) {
     // Check the stream mode
         if (stream_mode == std::string("ServerPush") || stream_mode == std::string("ClientPullPreFetch") || stream_mode == std::string("ClientPull"))
     {
-        // RCLCPP_INFO("Starting in %s mode", stream_mode.c_str());
         RCLCPP_INFO(node->get_logger(), "Starting in %s mode", stream_mode.c_str());
 
     }
@@ -80,13 +53,9 @@ int main(int argc, char **argv) {
     }
     // Assemble the full hostname
     tracker_hostname = tracker_hostname + ":" + std::to_string(tracker_port);
-
-    // ROS_INFO("Connecting to Vicon Tracker (DataStream SDK) at hostname %s", tracker_hostname.c_str());
     RCLCPP_INFO(node->get_logger(), "Connecting to Vicon Tracker (DataStream SDK) at hostname %s", tracker_hostname.c_str());
     
     // Make the ROS publisher
-    // ros::Publisher mocap_pub = nh.advertise<lightweight_vicon_bridge::MocapMarkerArray>(tracker_topic, 1, false);
-    // ros::Publisher viz_pub = nh.advertise<visualization_msgs::MarkerArray>(viz_topic, 10, false);
     rclcpp::Publisher<lightweight_vicon_bridge::msg::MocapMarkerArray>::SharedPtr mocap_pub = node->create_publisher<lightweight_vicon_bridge::msg::MocapMarkerArray>(tracker_topic, 1);
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr viz_pub = node->create_publisher<visualization_msgs::msg::MarkerArray>(viz_topic, 10);
     
@@ -127,12 +96,9 @@ int main(int argc, char **argv) {
         // Get a new frame and process it
         if (sdk_client.GetFrame().Result == ViconDataStreamSDK::CPP::Result::Success) {
             const auto total_latency = sdk_client.GetLatencyTotal().Total;
-            // const ros::Duration latency_duration(total_latency);
             const rclcpp::Duration latency_duration = rclcpp::Duration::from_seconds(total_latency);
 
-            // const auto current_time = ros::Time::now();
             const rclcpp::Time current_time = node->now();
-            // ros::Time raw_frame_time(0.0);
             rclcpp::Time raw_frame_time(0.0);
             if (current_time.seconds() > latency_duration.seconds())
             {
@@ -142,10 +108,9 @@ int main(int argc, char **argv) {
             {
                 RCLCPP_WARN(node->get_logger(), "(INVALID FRAME TIME) Latency estimate is greater than current time, leaving time at zero");
             }
-            // const ros::Time frame_time = raw_frame_time;
+
             const rclcpp::Time frame_time = raw_frame_time;
 
-            // lightweight_vicon_bridge::MocapMarkerArray state_msg;
             lightweight_vicon_bridge::msg::MocapMarkerArray state_msg;
 
             state_msg.header.frame_id = tracker_frame_name;
@@ -174,7 +139,6 @@ int main(int argc, char **argv) {
        
             mocap_pub->publish(state_msg);
             viz_pub->publish(viz_msg);
-            // viz_pub.publish(viz_msg);
         }
         // Handle ROS stuff
         rclcpp::spin_some(node);

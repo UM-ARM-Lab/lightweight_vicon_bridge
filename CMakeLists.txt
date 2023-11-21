@@ -33,7 +33,6 @@ endif(CMAKE_SIZEOF_VOID_P MATCHES "8")
 include_directories(include ${Boost_INCLUDE_DIRS} ${VICON_SDK_INCLUDE_DIR})
 link_directories(${VICON_SDK_LINK_DIR})
 
-<<<<<<< HEAD
 find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -42,8 +41,6 @@ find_package(rclcpp REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(visualization_msgs)
-=======
->>>>>>> refs/remotes/origin/zixuan/ros2
 
 
 
