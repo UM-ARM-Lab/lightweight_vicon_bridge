@@ -5,6 +5,8 @@
 #include "tf2_ros/transform_broadcaster.h"
 #include "geometry_msgs/msg/transform_stamped.hpp"
 
+
+
 std::unique_ptr<tf2_ros::TransformBroadcaster> g_tf_broadcaster;
 bool g_override_timestamps;
 
@@ -75,7 +77,7 @@ int main(int argc, char** argv)
         RCLCPP_INFO(node->get_logger(), "Parameter override_timestamps is set to FALSE - TF publisher will use the timestamps from the mocap system.");
     }
     // Create the TF broadcaster
-    g_tf_broadcaster =std::make_unique<tf2_ros::TransformBroadcaster>(*node);
+    g_tf_broadcaster = std::make_unique<tf2_ros::TransformBroadcaster>(*node);
     // Create the mocap data subscriber
     rclcpp::Subscription<lightweight_vicon_bridge::msg::MocapState>::SharedPtr mocap_sub = node->create_subscription<lightweight_vicon_bridge::msg::MocapState>(tracker_topic, 1, MocapMsgCB);
     // Start streaming data

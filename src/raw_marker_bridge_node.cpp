@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
     // Make the ROS publisher
     rclcpp::Publisher<lightweight_vicon_bridge::msg::MocapMarkerArray>::SharedPtr mocap_pub = node->create_publisher<lightweight_vicon_bridge::msg::MocapMarkerArray>(tracker_topic, 1);
     rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr viz_pub = node->create_publisher<visualization_msgs::msg::MarkerArray>(viz_topic, 10);
-    
+
     // Initialize the DataStream SDK
     ViconDataStreamSDK::CPP::Client sdk_client;
     RCLCPP_INFO(node->get_logger(), "Connecting to server...");
@@ -158,14 +158,23 @@ make_marker_viz(const std::string &tracker_frame_name, const rclcpp::Time &frame
     marker_viz_msg.header.frame_id = tracker_frame_name;
     marker_viz_msg.header.stamp = frame_time;
     marker_viz_msg.color.a = 1.0;
-    marker_viz_msg.color.r = 0.2;
+    marker_viz_msg.color.r = 0.5;
     marker_viz_msg.color.g = 0.2;
     marker_viz_msg.color.b = 0.2;
-    marker_viz_msg.scale.x = 0.005;
+    
+    marker_viz_msg.scale.x = 0.05;
+    marker_viz_msg.scale.y = 0.05;
+    marker_viz_msg.scale.z = 0.05; 
+
     marker_viz_msg.ns = std::to_string(idx);
     marker_viz_msg.pose.position.x = x;
     marker_viz_msg.pose.position.y = y;
     marker_viz_msg.pose.position.z = z;
     marker_viz_msg.pose.orientation.w = 1;
+    geometry_msgs::msg::Point p;
+    p.x = x;
+    p.y = y;
+    p.z = z;
+    marker_viz_msg.points.push_back(p);
     return marker_viz_msg;
 }
