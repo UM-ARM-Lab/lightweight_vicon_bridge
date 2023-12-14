@@ -1,12 +1,6 @@
 <launch>
-    <arg name="use_sim_time" default="false"/>
-
-    <group ns="static_transform_publishers">
-        <node pkg="tf2_ros" type="static_transform_publisher" name="val_pedestal_mocap_tf_shim_broadcaster" required="true"
-              args="-0.0185 -0.0254 -0.0381
-                    0                   0   -0.707106781186547  0.707106781186548
-                    mocap_ValOnHusky_ValOnHusky val_root">
-            <param name="use_sim_time" value="$(arg use_sim_time)"/>
-        </node>
-    </group>
+        <node  pkg="tf2_ros" exec="static_transform_publisher" name="victor_torso_mocap_tf_shim_broadcaster" 
+        args=" -0.0185 -0.0254 -0.0381
+                0                   0   -0.707106781186547  0.707106781186548
+                mocap_ValOnHusky_ValOnHusky val_root" />
 </launch>

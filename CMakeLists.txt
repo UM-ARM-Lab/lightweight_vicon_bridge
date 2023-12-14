@@ -1,80 +1,19 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(lightweight_vicon_bridge)
 
-find_package(catkin REQUIRED COMPONENTS geometry_msgs roscpp rospy tf message_generation)
+find_package(ament_cmake REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
 
-## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS signals)
 
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
 
-## Uncomment this if the package has a setup.py. This macro ensures
-## modules and global scripts declared therein get installed
-## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-# catkin_python_setup()
-
-################################################
-## Declare ROS messages, services and actions ##
-################################################
-
-## To declare and build messages, services or actions from within this
-## package, follow these steps:
-## * Let MSG_DEP_SET be the set of packages whose message types you use in
-##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
-## * In the file package.xml:
-##   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET
-##   * If MSG_DEP_SET isn't empty the following dependencies might have been
-##     pulled in transitively but can be declared for certainty nonetheless:
-##     * add a build_depend tag for "message_generation"
-##     * add a run_depend tag for "message_runtime"
-## * In this file (CMakeLists.txt):
-##   * add "message_generation" and every package in MSG_DEP_SET to
-##     find_package(catkin REQUIRED COMPONENTS ...)
-##   * add "message_runtime" and every package in MSG_DEP_SET to
-##     catkin_package(CATKIN_DEPENDS ...)
-##   * uncomment the add_*_files sections below as needed
-##     and list every .msg/.srv/.action file to be processed
-##   * uncomment the generate_messages entry below
-##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
-
-## Generate messages in the 'msg' folder
-add_message_files(DIRECTORY msg FILES MocapState.msg MocapObject.msg MocapSegment.msg MocapMarker.msg MocapMarkerArray.msg)
-
-## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
-
-## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
-#   Action2.action
-# )
-
-## Generate added messages and services with any dependencies listed here
-generate_messages(DEPENDENCIES geometry_msgs)
-
-###################################
-## catkin specific configuration ##
-###################################
-## The catkin_package macro generates cmake config files for your package
-## Declare things to be passed to dependent projects
-## INCLUDE_DIRS: uncomment this if you package contains header files
-## LIBRARIES: libraries you create in this project that dependent projects also need
-## CATKIN_DEPENDS: catkin_packages dependent projects also need
-## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(#  INCLUDE_DIRS include
-#  LIBRARIES lightweight_vicon_bridge
- CATKIN_DEPENDS std_msgs geometry_msgs roscpp rospy tf message_runtime
-)
-
-###########
-## Build ##
-###########
-
-## Check platform size (32-bit vs 64-bit)
 if(CMAKE_SIZEOF_VOID_P MATCHES "8")
     set(VICON_SDK_PATH vicon_sdk/x64)
     set(VICON_SDK_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/${VICON_SDK_PATH})
@@ -91,69 +30,77 @@ endif(CMAKE_SIZEOF_VOID_P MATCHES "8")
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
-include_directories(${catkin_INCLUDE_DIRS} ${VICON_SDK_INCLUDE_DIR})
+include_directories(include ${Boost_INCLUDE_DIRS} ${VICON_SDK_INCLUDE_DIR})
 link_directories(${VICON_SDK_LINK_DIR})
 
-set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} -O3")
+find_package(ament_cmake REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(visualization_msgs)
 
-# Cpp bridge executable (objects only)
+
+
+###########################################
+############# build interfaces ############
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/MocapState.msg"
+  "msg/MocapObject.msg"
+  "msg/MocapSegment.msg"
+  "msg/MocapMarker.msg"
+  "msg/MocapMarkerArray.msg"
+  DEPENDENCIES geometry_msgs std_msgs # Add packages that above messages depend on, in this case geometry_msgs for Sphere.msg
+)
+ament_export_dependencies(rosidl_default_runtime)
+rosidl_get_typesupport_target(cpp_typesupport_target
+  ${PROJECT_NAME} rosidl_typesupport_cpp)
+###########################################
+##############  build src  ################
+
 add_executable(lightweight_vicon_bridge_node src/lightweight_vicon_bridge_node.cpp)
-add_dependencies(lightweight_vicon_bridge_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencpp)
-target_link_libraries(lightweight_vicon_bridge_node ViconDataStreamSDK_CPP ${catkin_LIBRARIES})
+ament_target_dependencies(lightweight_vicon_bridge_node rclcpp std_msgs geometry_msgs)
+target_link_libraries(lightweight_vicon_bridge_node ViconDataStreamSDK_CPP "${cpp_typesupport_target}" ${Boost_LIBRARIES})
+
+
+add_executable(tf_publisher_node src/tf_publisher_node.cpp)
+ament_target_dependencies(tf_publisher_node rclcpp std_msgs geometry_msgs tf2 tf2_ros)
+target_link_libraries(tf_publisher_node ViconDataStreamSDK_CPP "${cpp_typesupport_target}" ${Boost_LIBRARIES})
 
 add_executable(raw_marker_bridge_node src/raw_marker_bridge_node.cpp)
-add_dependencies(raw_marker_bridge_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencpp)
-target_link_libraries(raw_marker_bridge_node ViconDataStreamSDK_CPP ${catkin_LIBRARIES})
+ament_target_dependencies(raw_marker_bridge_node rclcpp std_msgs geometry_msgs visualization_msgs)
+target_link_libraries(raw_marker_bridge_node ViconDataStreamSDK_CPP "${cpp_typesupport_target}" ${Boost_LIBRARIES})
 
-# TF publisher executable
-add_executable(tf_publisher_node src/tf_publisher_node.cpp)
-add_dependencies(tf_publisher_node ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_gencpp)
-target_link_libraries(tf_publisher_node ${catkin_LIBRARIES})
+set_target_properties(lightweight_vicon_bridge_node PROPERTIES INSTALL_RPATH "$ORIGIN;${VICON_SDK_LINK_DIR}")
 
-#############
-## Install ##
-#############
+#######################################
+################ Install ##############
 
-# all install targets should use catkin DESTINATION variables
-# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
+install(TARGETS
+  lightweight_vicon_bridge_node
+  tf_publisher_node
+  raw_marker_bridge_node
+  DESTINATION lib/${PROJECT_NAME})
+  
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
+)
 
-## Mark executable scripts (Python etc.) for installation
-## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  # the following line skips the linter which checks for copyrights
+  # comment the line when a copyright and license is added to all source files
+  set(ament_cmake_copyright_FOUND TRUE)
+  # the following line skips cpplint (only works in a git repo)
+  # comment the line when this package is in a git repo and when
+  # a copyright and license is added to all source files
+  set(ament_cmake_cpplint_FOUND TRUE)
+  ament_lint_auto_find_test_dependencies()
+endif()
 
-## Mark executables and/or libraries for installation
-# install(TARGETS lightweight_vicon_bridge lightweight_vicon_bridge_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
 
-## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
 
-## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
-
-#############
-## Testing ##
-#############
-
-## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_lightweight_vicon_bridge.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
-
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+ament_package()

@@ -1,4 +1,5 @@
 <launch>
+     
 
     <arg name="output" default="screen"/>
     <arg name="tracker_hostname" default="10.10.10.5"/>
@@ -12,42 +13,24 @@
     <arg name="use_sim_time" default="false"/>
 
     <arg name="publish_raw_markers" default="false"/>
+    <arg name="publish_label_markers" default="false"/>
 
-    <node pkg="lightweight_vicon_bridge" type="lightweight_vicon_bridge_node" name="lightweight_vicon_bridge" output="$(arg output)">
-        <param name="tracker_hostname" type="string" value="$(arg tracker_hostname)"/>
-        <param name="tracker_port" type="string" value="$(arg tracker_port)"/>
-        <param name="tracker_frame_name" type="string" value="$(arg tracker_origin_frame_name)"/>
-        <param name="tracker_name" type="string" value="$(arg tracker_name)"/>
-        <param name="tracker_topic" type="string" value="$(arg object_tracker_topic)"/>
-        <param name="stream_mode" type="string" value="$(arg stream_mode)"/>
-        <param name="use_sim_time" type="bool" value="$(arg use_sim_time)"/>
+    <node pkg="lightweight_vicon_bridge" exec="lightweight_vicon_bridge_node" name="lightweight_vicon_bridge" output="$(var output)">
+        <param name="tracker_hostname" value="$(var tracker_hostname)"/>
+        <param name="tracker_port" value="$(var tracker_port)"/>
+        <param name="tracker_frame_name" value="$(var tracker_origin_frame_name)"/>
+        <param name="tracker_name"  value="$(var tracker_name)"/>
+        <param name="tracker_topic"  value="$(var object_tracker_topic)"/>
+        <param name="stream_mode" value="$(var stream_mode)"/>
+        <param name="use_sim_time" value="$(var use_sim_time)"/>
     </node>
 
-    <node if="$(arg publish_raw_markers)" pkg="lightweight_vicon_bridge" type="raw_marker_bridge_node" name="raw_marker_bridge" output="$(arg output)">
-        <param name="tracker_hostname" type="string" value="$(arg tracker_hostname)"/>
-        <param name="tracker_port" type="string" value="$(arg tracker_port)"/>
-        <param name="tracker_frame_name" type="string" value="$(arg tracker_origin_frame_name)"/>
-        <param name="tracker_name" type="string" value="$(arg tracker_name)"/>
-        <param name="tracker_topic" type="string" value="$(arg marker_tracker_topic)"/>
-        <param name="stream_mode" type="string" value="$(arg stream_mode)"/>
-        <param name="use_sim_time" type="bool" value="$(arg use_sim_time)"/>
+
+    <node pkg="lightweight_vicon_bridge" exec="tf_publisher_node" name="mocap_tf_publisher_node" output="$(var output)">
+        <param name="tracker_topic" value="$(var object_tracker_topic)"/>
+        <param name="override_timestamps" value="$(var override_timestamps)"/>
+        <param name="use_sim_time" value="$(var use_sim_time)"/>
     </node>
 
-    <node pkg="lightweight_vicon_bridge" type="tf_publisher_node" name="mocap_tf_publisher_node" output="$(arg output)">
-        <param name="tracker_topic" type="string" value="$(arg object_tracker_topic)"/>
-        <param name="override_timestamps" type="bool" value="$(arg override_timestamps)"/>
-        <param name="use_sim_time" type="bool" value="$(arg use_sim_time)"/>
-    </node>
-
-    <group ns="static_transform_publishers">
-
-        <!-- Transform from the mocap calibration plate to a floor aligned frame.
-             Calculated by placing 4 mocap plates to set the origin, and the positive x and y axes 
-             See issue#5 for the placement of the mocap plates  -->
-        <node pkg="tf2_ros" type="static_transform_publisher" name="fake_world_origin" required="true"
-              args="0.751024327411   -0.0822099292439   -0.842606341352        0.005632730525041  -0.016077801473191   0.015361651701277   0.999736863531414        mocap_world world_origin">
-            <param name="use_sim_time" value="$(arg use_sim_time)"/>
-        </node>
-    </group>
 
 </launch>

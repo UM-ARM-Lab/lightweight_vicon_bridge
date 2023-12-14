@@ -1,9 +1,0 @@
-<launch>
-    <group ns="static_transform_publishers">
-        <!-- Note that when specifying orientation with 3 numbers, it's yaw pitch roll -->
-        <node pkg="tf2_ros" type="static_transform_publisher" name="realsense_mocap_tf_shim_broadcaster" required="true"
-              args="0.00179 0.03787 -0.02809 -0.12445 0.70670 -0.00594
-                    mocap_big_realsense_1_big_realsense_1 camera_link">
-        </node>
-    </group>
-</launch>
