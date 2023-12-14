@@ -32,11 +32,5 @@
         <param name="use_sim_time" value="$(var use_sim_time)"/>
     </node>
 
-    
-    <node  pkg="tf2_ros" exec="static_transform_publisher" name="victor_torso_mocap_tf_shim_broadcaster" 
-    args=" -0.017089397889861514 0.03745940545591349 -1.4090475155142663
-          0.015541007504028821 0.0069256832595382635 0.020888248743866845 0.9996370306574095
-          mocap_VictorTorso1_VictorTorso1 victor_root" />
-          
 
 </launch>
